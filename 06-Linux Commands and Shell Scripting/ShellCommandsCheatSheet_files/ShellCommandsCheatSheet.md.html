@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!-- saved from url=(0165)https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-LX0117EN-SkillsNetwork/labs/module%201/ShellCommandsCheatSheet.md.html?origin=www.coursera.org -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./ShellCommandsCheatSheet.md_files/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./ShellCommandsCheatSheet.md_files/default.min.css">
+  <style type="text/css">/* this file is used for labs on cognitiveclass.ai that were written in markdown */
+
+/* applies to images, i.e. "![]()" in markdown */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* add padding and margins */
+body {
+  padding: 10px;
+  margin: 10px;
+}
+
+/* applies to tables, i.e. "|--|--|" in markdown */
+table td,
+table th {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+/* applies to using quotes, i.e. ">" in markdown */
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 1em 10px 0.1em 10px;
+  quotes: '\201C''\201D''\2018''\2019';
+}
+
+/* the headers need some spacing */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  padding-top: 20px;
+}
+
+/* Add padding between nested list item */
+ul > li > ul {
+  padding-bottom: 1rem;
+}
+
+.code-badge-language {
+  display: none;
+}
+.code-badge-copy-icon {
+  background: url('data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgZGF0YS1wcmVmaXg9ImZhciIgZGF0YS1pY29uPSJjb3B5IiBjbGFzcz0ic3ZnLWlubGluZS0tZmEgZmEtY29weSBmYS13LTE0IiByb2xlPSJpbWciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDQ0OCA1MTIiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTQzMy45NDEgNjUuOTQxbC01MS44ODItNTEuODgyQTQ4IDQ4IDAgMCAwIDM0OC4xMTggMEgxNzZjLTI2LjUxIDAtNDggMjEuNDktNDggNDh2NDhINDhjLTI2LjUxIDAtNDggMjEuNDktNDggNDh2MzIwYzAgMjYuNTEgMjEuNDkgNDggNDggNDhoMjI0YzI2LjUxIDAgNDgtMjEuNDkgNDgtNDh2LTQ4aDgwYzI2LjUxIDAgNDgtMjEuNDkgNDgtNDhWOTkuODgyYTQ4IDQ4IDAgMCAwLTE0LjA1OS0zMy45NDF6TTI2NiA0NjRINTRhNiA2IDAgMCAxLTYtNlYxNTBhNiA2IDAgMCAxIDYtNmg3NHYyMjRjMCAyNi41MSAyMS40OSA0OCA0OCA0OGg5NnY0MmE2IDYgMCAwIDEtNiA2em0xMjgtOTZIMTgyYTYgNiAwIDAgMS02LTZWNTRhNiA2IDAgMCAxIDYtNmgxMDZ2ODhjMCAxMy4yNTUgMTAuNzQ1IDI0IDI0IDI0aDg4djIwMmE2IDYgMCAwIDEtNiA2em02LTI1NmgtNjRWNDhoOS42MzJjMS41OTEgMCAzLjExNy42MzIgNC4yNDMgMS43NTdsNDguMzY4IDQ4LjM2OGE2IDYgMCAwIDEgMS43NTcgNC4yNDNWMTEyeiI+PC9wYXRoPjwvc3ZnPg==');
+  background-size: 100% 100%;
+}
+
+.code-badge {
+  bottom: 0 !important;
+  top: unset !important;
+  background: unset !important;
+}
+
+.code-badge > .code-badge-check-icon {
+  background: green;
+}
+.code-badge-check-icon {
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 0 7px;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGFyaWEtaGlkZGVuPSJ0cnVlIiBmb2N1c2FibGU9ImZhbHNlIiBkYXRhLXByZWZpeD0iZmFzIiBkYXRhLWljb249ImNoZWNrIiBjbGFzcz0ic3ZnLWlubGluZS0tZmEgZmEtY2hlY2sgZmEtdy0xNiIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgc3R5bGU9IiYjMTA7ICAgIGNvbG9yOiAjMmFmZjMyOyYjMTA7Ij48cGF0aCBmaWxsPSJjdXJyZW50Q29sb3IiIGQ9Ik0xNzMuODk4IDQzOS40MDRsLTE2Ni40LTE2Ni40Yy05Ljk5Ny05Ljk5Ny05Ljk5Ny0yNi4yMDYgMC0zNi4yMDRsMzYuMjAzLTM2LjIwNGM5Ljk5Ny05Ljk5OCAyNi4yMDctOS45OTggMzYuMjA0IDBMMTkyIDMxMi42OSA0MzIuMDk1IDcyLjU5NmM5Ljk5Ny05Ljk5NyAyNi4yMDctOS45OTcgMzYuMjA0IDBsMzYuMjAzIDM2LjIwNGM5Ljk5NyA5Ljk5NyA5Ljk5NyAyNi4yMDYgMCAzNi4yMDRsLTI5NC40IDI5NC40MDFjLTkuOTk4IDkuOTk3LTI2LjIwNyA5Ljk5Ny0zNi4yMDQtLjAwMXoiLz48L3N2Zz4=');
+  background-size: 100% 100%;
+}
+</style></head>
+  <body>
+    <h1>Linux and Bash Command Cheat Sheet: The Basics</h1>
+    <h3>Getting information</h3>
+    <hr>
+    <p># return your user name<br><code>whoami</code></p>
+    <p># return your user and group id<br><code>id</code></p>
+    <p># return operating system name, username, and other info<br><code>uname -a</code></p>
+    <p># display reference manual for a command<br><code>man top</code></p>
+    <p># get help on a command<br><code>curl --help</code></p>
+    <p># return the current date and time<br><code>date</code></p>
+    <h3>Monitoring performance and status</h3>
+    <hr>
+    <p># list selection of or all running processes and their PIDs<br><code>ps</code><br><code>ps -e</code></p>
+    <p># display resource usage<br><code>top</code></p>
+    <p># list mounted file systems and usage<br><code>df</code></p>
+    <h3>Working with files</h3>
+    <hr>
+    <p># copy a file<br><code>cp file.txt new_path/new_name.txt</code></p>
+    <p># change file name or path<br><code>mv this_file.txt that_path/that_file.txt</code></p>
+    <p># remove a file verbosely<br><code>rm this_old_file.txt -v</code></p>
+    <p># create an empty file, or update existing file's timestamp<br><code>touch a_new_file.txt</code></p>
+    <p># change/modify file permissions to 'execute' for all users<br><code>chmod +x my_script.sh</code></p>
+    <p># get count of lines, words, or characters in file<br><code>wc -l table_of_data.csv</code><br><code>wc -w my_essay.txt</code><br><code>wc -m some_document.txt</code></p>
+    <p># return lines matching a pattern from files matching a filename pattern - case insensitive and whole words only<br><code>grep -iw hello \*.txt</code></p>
+    <p># return file names with lines matching the pattern 'hello' from files matching a filename pattern<br><code>grep -l hello \*.txt</code></p>
+    <h3>Navigating and working with directories</h3>
+    <hr>
+    <p># list files and directories by date, newest last<br><code>ls -lrt</code></p>
+    <p># find files in directory tree with suffix 'sh'<br><code>find -name '\*.sh'</code></p>
+    <p># return present working directory<br><code>pwd</code></p>
+    <p># make a new directory<br><code>mkdir new_folder</code></p>
+    <p># change the current directory: up one level, home, or some other path<br><code>cd ../</code><br><code>cd ~</code> or <code>cd</code><br><code>cd another_directory</code></p>
+    <p># remove directory, verbosely<br><code>rmdir temp_directory -v</code></p>
+    <h3>Printing file and string contents</h3>
+    <hr>
+    <p># print file contents<br><code>cat my_shell_script.sh</code></p>
+    <p># print file contents page-by-page<br><code>more ReadMe.txt</code></p>
+    <p># print first N lines of file<br><code>head -10 data_table.csv</code></p>
+    <p># print last N lines of file<br><code>tail -10 data_table.csv</code></p>
+    <p># print string or variable value<br><code>echo "I am not a robot"</code><br><code>echo "I am $USERNAME"</code></p>
+    <h3>Compression and archiving</h3>
+    <hr>
+    <p># archive a set of files<br><code>tar -cvf my_archive.tar.gz file1 file2 file3</code></p>
+    <p># compress a set of files<br><code>zip my_zipped_files.zip file1 file2</code><br><code>zip my_zipped_folders.zip directory1 directory2</code></p>
+    <p># extract files from a compressed zip archive<br><code>unzip my_zipped_file.zip</code><br><code>unzip my_zipped_file.zip -d extract_to_this_direcory</code></p>
+    <h3>Performing network operations</h3>
+    <hr>
+    <p># print hostname<br><code>hostname</code></p>
+    <p># send packets to URL and print response<br><code>ping www.google.com</code></p>
+    <p># display or configure system network interfaces<br><code>ifconfig</code><br><code>ip</code></p>
+    <p># display contents of file at a URL<br><code>curl &lt;url&gt;</code></p>
+    <p># download file from a URL<br><code>wget &lt;url&gt;</code></p>
+    <h3>Bash shebang</h3>
+    <hr>
+    <p><code>#!/bin/bash</code></p>
+    <h3>Pipes and Filters</h3>
+    <hr>
+    <p># chain filter commands using the pipe operator<br><code>ls | sort -r</code></p>
+    <p># pipe the output of manual page for ls to head to display the first 20 lines<br><code>man ls | head -20</code></p>
+    <h3>Shell and Environment Variables</h3>
+    <hr>
+    <p># list all shell variables<br><code>set</code></p>
+    <p># define a shell variable called my_planet and assign value Earth to it<br><code>my_planet=Earth</code></p>
+    <p># display shell variable<br><code>echo $my_planet</code></p>
+    <p># list all environment variables<br><code>env</code></p>
+    <p># environment vars: define/extend variable scope to child processes<br><code>export my_planet</code><br><code>export my_galaxy='Milky Way'</code></p>
+    <h3>Metacharacters</h3>
+    <hr>
+    <p># comments<br><code># The shell will not respond to this message</code></p>
+    <p># command separator<br><code>echo 'here are some files and folders'; ls</code></p>
+    <p># file name expansion wildcard<br><code>ls *.json</code></p>
+    <p># single character wildcard<br><code>ls file_2021-06-??.json</code></p>
+    <h3>Quoting</h3>
+    <hr>
+    <p># single quotes - interpret literally<br><code>echo 'My home directory can be accessed by entering: echo $HOME'</code></p>
+    <p># double quotes - interpret literally, but evaluate metacharacters<br><code>echo "My home directory is $HOME"</code></p>
+    <p># backslash - escape metacharacter interpretation<br><code>echo "This dollar sign should render: \$"</code></p>
+    <h3>I/O Redirection</h3>
+    <hr>
+    <p># redirect output to file<br><code>echo 'Write this text to file x' &gt; x</code></p>
+    <p># append output to file<br><code>echo 'Add this line to file x' &gt;&gt; x</code></p>
+    <p># redirect standard error to file<br><code>bad_command_1 2&gt; error.log</code></p>
+    <p># append standard error to file<br><code>bad_command_2 2&gt;&gt; error.log</code></p>
+    <p># redirect file contents to standard input<br><code>$ tr “[a-z]” “[A-Z]” &lt; a_text_file.txt</code></p>
+    <p># the input redirection above is equivalent to<br><code>$cat a_text_file.txt | tr “[a-z]” “[A-Z]”</code></p>
+    <h3>Command Substitution</h3>
+    <hr>
+    <p># capture output of a command and echo its value<br><code>THE_PRESENT=$(date)</code><br><code>echo "There is no time like $THE_PRESENT"</code></p>
+    <h3>Command line arguments</h3>
+    <hr>
+    <p><code>./My_Bash_Script.sh arg1 arg2 arg3</code></p>
+    <h3>Batch vs. concurrent modes</h3>
+    <hr>
+    <p># run commands sequentially<br><code>start=$(date); ./MyBigScript.sh ; end=$(date)</code></p>
+    <p># run commands in parallel<br><code>./ETL_chunk_one_on_these_nodes.sh &amp; ./ETL_chunk_two_on_those_nodes.sh</code></p>
+    <h2>Scheduling jobs with Cron</h2>
+    <hr>
+    <p># open crontab editor<br><code>crontab -e</code></p>
+    <p># job scheduling syntax<br><code>m h dom mon dow command</code><br><em>minute, hour, day of month, month, day of week</em><br><code>*</code> means any</p>
+    <p># append the date/time to file every Sunday at 6:15 pm<br><code>15 18 * * 0 date &gt;&gt; sundays.txt</code></p>
+    <p># run a shell script on the first minute of the first day of each month<br><code>1 0 1 * * ./My_Shell_Script.sh</code></p>
+    <p># back up your home directory every Monday at 3 am<br><code>0 3 * * 1 tar -cvf my_backup_path\my_archive.tar.gz $HOME\</code></p>
+    <p># deploy your cron job<br><em>Close the crontab editor and save the file</em></p>
+    <p># list all cron jobs<br><code>crontab -l</code></p>
+    <hr>
+    <p>© Copyright IBM Corporation 2021. All rights reserved.</p>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="./ShellCommandsCheatSheet.md_files/inject.43989f87.js.download"></script>
+    <script src="./ShellCommandsCheatSheet.md_files/highlight.min.js.download"></script>
+    <script src="./ShellCommandsCheatSheet.md_files/highlightjs-badge.min.js.download"></script>
+  
+
+<style>
+@media print {
+   .code-badge { display: none; }
+}
+    .code-badge-pre {
+        position: relative;
+    }
+    .code-badge {
+        display: flex;
+        flex-direction: row;
+        white-space: normal;
+        background: transparent;
+        background: #333;
+        color: white;
+        font-size: 0.875em;
+        opacity: 0.5;
+        transition: opacity linear 0.5s;
+        border-radius: 0 0 0 7px;
+        padding: 5px 8px 5px 8px;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .code-badge.active {
+        opacity: 0.8;
+    }
+
+    .code-badge:hover {
+        opacity: .95;
+    }
+
+    .code-badge a,
+    .code-badge a:hover {
+        text-decoration: none;
+    }
+
+    .code-badge-language {
+        margin-right: 10px;
+        font-weight: 600;
+        color: goldenrod;
+    }
+    .code-badge-copy-icon {
+        font-size: 1.2em;
+        cursor: pointer;
+        padding: 0 7px;
+        margin-top:2;
+    }
+    .fa.text-success:{ color: limegreen !important }
+</style><div id="CodeBadgeTemplate" style="display:none">
+    <div class="code-badge">
+        <div class="code-badge-language">{{language}}</div>
+        <div title="Copy to clipboard">
+            <i class="{{copyIconClass}} code-badge-copy-icon"></i>
+        </div>
+     </div>
+</div></body></html>
