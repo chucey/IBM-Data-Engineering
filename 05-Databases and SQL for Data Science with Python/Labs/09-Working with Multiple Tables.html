@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/IDSNlogo.png" width="200" height="200">
+    <h1>Hands-on Lab: Working with Multiple Tables in MySQL using phpMyAdmin</h1>
+    <p><strong>Estimated time needed:</strong> 20 minutes</p>
+    <p>In this lab, you will learn how to create tables and load data in the MySQL database service using the phpMyAdmin graphical user interface (GUI) tool.</p>
+    <h1></h1>
+    <h2>Software Used in this Lab</h2>
+    <p>In this lab, you will use <a href="https://www.mysql.com/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2021-01-01">MySQL</a>. MySQL is a Relational Database Management System (RDBMS) designed to efficiently store, manipulate, and retrieve data.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/mysql.png" width="100" height="100">
+    <p></p>
+    <p>To complete this lab you will utilize MySQL relational database service available as part of IBM Skills Network Labs (SN Labs) Cloud IDE. SN Labs is a virtual lab environment used in this course.</p>
+    <h1></h1>
+    <h2>Database Used in this Lab</h2>
+    <p>The database used in this lab is an internal database. You will be working on a sample HR database. This HR database schema consists of 5 tables called <strong>EMPLOYEES</strong>, <strong>JOB_HISTORY</strong>, <strong>JOBS</strong>, <strong>DEPARTMENTS</strong> and <strong>LOCATIONS</strong>. Each table has a few rows of sample data. The following diagram shows the tables for the HR database:</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/Labs_Coursera_V5/labs/Lab%20-%20Create%20tables%20using%20SQL%20scripts%20and%20Load%20data%20into%20tables/images/Sample_1.PNG" width="670" height="400">
+    <h2>Objectives</h2>
+    <p>After completing this lab you will be able to:</p>
+    <ul>
+      <li>Write SQL queries that access more than one table</li>
+      <li>Compose queries that access multiple tables using a nested statement in the WHERE clause</li>
+      <li>Build queries with multiple tables in the FROM clause</li>
+      <li>Write Implicit Join queries with join criteria specified in the WHERE clause</li>
+      <li>Specify aliases for table names and qualify column names with table aliases</li>
+    </ul>
+    <p>In this lab, you will through some SQL practice problems that will provide hands-on experience with SQL queries that access multiple tables. You will be:</p>
+    <ul>
+      <li>Accessing Multiple Tables with Sub-Queries</li>
+      <li>Accessing Multiple Tables with Implicit Joins</li>
+    </ul><br>
+    <p><strong>How does an Implicit version of CROSS JOIN (also known as Cartesian Join) statement syntax look?</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s)
+<span class="hljs-keyword">FROM</span> table1, table2;
+</code></pre><br>
+    <p><strong>How does an Implicit version of INNER JOIN statement syntax look?</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s)
+<span class="hljs-keyword">FROM</span> table1, table2
+<span class="hljs-keyword">WHERE</span> table1.<span class="hljs-built_in">column_name</span> = table2.<span class="hljs-built_in">column_name</span>;
+</code></pre>
+    <h1>Exercise 1: Accessing Multiple Tables with Sub-Queries</h1>
+    <ol>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve only the EMPLOYEES records that correspond to jobs in the JOBS table.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-csharp"><span class="hljs-keyword">select</span> * <span class="hljs-function"><span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">where</span> JOB_ID <span class="hljs-title">IN</span> (<span class="hljs-params"><span class="hljs-keyword">select</span> JOB_IDENT <span class="hljs-keyword">from</span> JOBS</span>)</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/1A.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve only the list of employees whose JOB_TITLE is Jr. Designer.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-csharp"><span class="hljs-keyword">select</span> * <span class="hljs-function"><span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">where</span> JOB_ID <span class="hljs-title">IN</span> (<span class="hljs-params"><span class="hljs-keyword">select</span> JOB_IDENT <span class="hljs-keyword">from</span> JOBS <span class="hljs-keyword">where</span> JOB_TITLE= <span class="hljs-string">'Jr. Designer'</span></span>)</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/1B.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve JOB information and list of employees who earn more than $70,000.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-csharp"><span class="hljs-keyword">select</span> JOB_TITLE, MIN_SALARY,MAX_SALARY,<span class="hljs-function">JOB_IDENT <span class="hljs-keyword">from</span> JOBS <span class="hljs-keyword">where</span> JOB_IDENT <span class="hljs-title">IN</span> (<span class="hljs-params"><span class="hljs-keyword">select</span> JOB_ID <span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">where</span> SALARY > <span class="hljs-number">70000</span> </span>)</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/1C.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve JOB information and list of employees whose birth year is after 1976.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-csharp"><span class="hljs-keyword">select</span> JOB_TITLE, MIN_SALARY,MAX_SALARY,<span class="hljs-function">JOB_IDENT <span class="hljs-keyword">from</span> JOBS <span class="hljs-keyword">where</span> JOB_IDENT <span class="hljs-title">IN</span> (<span class="hljs-params"><span class="hljs-keyword">select</span> JOB_ID <span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">where</span> YEAR(B_DATE</span>)>1976 )</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/1D.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve JOB information and list of female employees whose birth year is after 1976.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-csharp"><span class="hljs-keyword">select</span> JOB_TITLE, MIN_SALARY,MAX_SALARY,<span class="hljs-function">JOB_IDENT <span class="hljs-keyword">from</span> JOBS  <span class="hljs-keyword">where</span> JOB_IDENT <span class="hljs-title">IN</span> (<span class="hljs-params"><span class="hljs-keyword">select</span> JOB_ID <span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">where</span> YEAR(B_DATE</span>)>1976 <span class="hljs-keyword">and</span> SEX</span>=<span class="hljs-string">'F'</span> );
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/1E.png" alt="image">
+          </p>
+        </details>
+      </li>
+    </ol><br>
+    <h1>Exercise 2: Accessing Multiple Tables with Implicit Joins</h1>
+    <ol>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Perform an implicit cartesian/cross join between EMPLOYEES and JOBS tables.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> EMPLOYEES, JOBS;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/2A.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Retrieve only the EMPLOYEES records that correspond to jobs in the JOBS table.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> EMPLOYEES, JOBS <span class="hljs-keyword">where</span> EMPLOYEES.JOB_ID = JOBS.JOB_IDENT;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/2B.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Redo the previous query, using shorter aliases for table names.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-built_in">E</span>, JOBS J <span class="hljs-keyword">where</span> <span class="hljs-built_in">E</span>.JOB_ID = J.JOB_IDENT;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/2C.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Redo the previous query, but retrieve only the Employee ID, Employee Name and Job Title.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-mipsasm">select EMP_ID,F_NAME,L_NAME, <span class="hljs-keyword">JOB_TITLE </span>from EMPLOYEES E, <span class="hljs-keyword">JOBS </span><span class="hljs-keyword">J </span>where E.<span class="hljs-keyword">JOB_ID </span>= <span class="hljs-keyword">J.JOB_IDENT;
+</span></code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/2D.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Redo the previous query, but specify the fully qualified column names with aliases in the SELECT clause.</em></p>
+        </blockquote>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.EMP_ID,<span class="hljs-built_in">E</span>.F_NAME,<span class="hljs-built_in">E</span>.L_NAME, J.JOB_TITLE <span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-built_in">E</span>, JOBS  J <span class="hljs-keyword">where</span> <span class="hljs-built_in">E</span>.JOB_ID = J.JOB_IDENT;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/images/2E.png" alt="image">
+          </p>
+        </details>
+      </li>
+    </ol><br>
+    <h1>Solution Script</h1>
+    <p>If you would like to run all the solution queries of the SQL problems of this lab with a script, download the script below. Import the script to mysql phpadmin interface and run. Follow <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week2/Create_and%20_Load.md.html" target="_blank" rel="external">Hands-on Lab : Create tables using SQL scripts and Load data into tables</a> on how to import a script to MYsql phpadmin interface and run it.</p>
+    <ul>
+      <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week3/multipletables.sql" target="_blank" rel="external">MultipleTables_Solution_Script.sql</a></li>
+    </ul><br>
+    <h3>Congratulations! You have completed this lab, and you are ready for the next topic.</h3>
+    <h3><br></h3>
+    <h1>Author(s)</h1>
+    <p><a href="https://www.linkedin.com/in/lakshmi-holla-b39062149/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2022-01-01" target="_blank" rel="external">Lakshmi Holla</a></p>
+    <p><a href="https://www.linkedin.com/in/malika-goyal-04798622/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2022-01-01" target="_blank" rel="external">Malika Singla</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2021-11-01</td>
+          <td>0.1</td>
+          <td>Lakshmi Holla, Malika Singla</td>
+          <td>Initial Version</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2021. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

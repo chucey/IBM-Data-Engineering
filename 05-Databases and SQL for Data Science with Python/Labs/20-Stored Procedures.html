@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/IDSNlogo.png" width="200" height="200">
+    <h1>Hands-on Lab: Stored Procedures in MySQL using phpMyAdmin</h1>
+    <p><strong>Estimated time needed:</strong> 20 minutes</p>
+    <p>In this lab, you will learn how to create tables and load data in the MySQL database service using the phpMyAdmin graphical user interface (GUI) tool.</p>
+    <h1></h1>
+    <h2>Software Used in this Lab</h2>
+    <p>In this lab, you will use <a href="https://www.mysql.com/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2021-01-01">MySQL</a>. MySQL is a Relational Database Management System (RDBMS) designed to efficiently store, manipulate, and retrieve data.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/mysql.png" width="100" height="100">
+    <p></p>
+    <p>To complete this lab you will utilize MySQL relational database service available as part of IBM Skills Network Labs (SN Labs) Cloud IDE. SN Labs is a virtual lab environment used in this course.</p>
+    <h1></h1>
+    <h2>Database Used in this Lab</h2>
+    <p><strong>Mysql_learners</strong> database has been used in this lab.</p>
+    <h2>Data Used in this Lab</h2>
+    <p>The data used in this lab is internal data. You will be working on the <strong>PETSALE</strong> table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/Labs_Coursera_V5/labs/Lab%20-%20Stored%20Procedures/images/PETSALE_table_v2.png" alt="image">
+    </p>
+    <p>This lab requires you to have the PETSALE table populated with sample data on mysql phpadmin interface. You might have created and populated a PETSALE table in a previous lab. But for this lab, it is recommended you download the <code>PETSALE-CREATE-v2.sql</code> script below, upload it to phpadmin console and run it. The script will create a new PETSALE table dropping any previous PETSALE table if exists, and will populate it with the required sample data.</p>
+    <ul>
+      <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/PETSALE-CREATE-v2.sql" target="_blank" rel="external">PETSALE-CREATE-v2.sql</a></li>
+    </ul>
+    <h2>Objectives</h2>
+    <p>After completing this lab, you will be able to:</p>
+    <ul>
+      <li>Create stored procedures</li>
+      <li>Execute stored procedures</li>
+    </ul><br>
+    <h1>Exercise 1</h1>
+    <p>In this exercise, you will create and execute a stored procedure to read data from a table on mysql phpadmin using SQL.</p>
+    <ol>
+      <li>
+        <p>Make sure you have created and populated the <strong>PETSALE</strong> table following the steps in the <strong>"Data Used in this Lab"</strong> section of this lab.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/Labs_Coursera_V5/labs/Lab%20-%20Stored%20Procedures/images/PETSALE_table_v2.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <ul>
+          <li>You will create a stored procedure routine named <strong>RETRIEVE_ALL</strong>.</li>
+          <li>This <strong>RETRIEVE_ALL</strong> routine will contain an SQL query to retrieve all the records from the PETSALE table, so you don't need to write the</li>
+        </ul>
+        <p>same query over and over again. You just call the stored procedure routine to execute the query everytime.</p>
+        <ul>
+          <li>To create the stored procedure routine, copy the code below and paste it to the textarea of the <strong>SQL</strong> page. Click <strong>Go</strong>.</li>
+        </ul>
+        <p></p>
+      </li>
+    </ol>
+    <pre><code class="hljs language-oxygene">DELIMITER <span class="hljs-comment">//</span>
+
+<span class="hljs-keyword">CREATE</span> <span class="hljs-function"><span class="hljs-keyword">PROCEDURE</span> <span class="hljs-title">RETRIEVE_ALL</span><span class="hljs-params">()</span>
+
+<span class="hljs-title">BEGIN</span>
+  
+   <span class="hljs-title">SELECT</span> *  <span class="hljs-title">FROM</span> <span class="hljs-title">PETSALE</span>;</span>
+   
+   
+<span class="hljs-keyword">END</span> <span class="hljs-comment">//</span>
+
+DELIMITER ; 
+</code></pre>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc1.png" alt="image">
+    </p>
+    <ol start="3">
+      <li>To call the RETRIEVE_ALL routine, open another <strong>SQL</strong> tab by clicking <strong>Open in new Tab</strong></li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc2.png" alt="image">
+    </p>
+    <p>Delete the default line which appears so that you will get a blank window.</p>
+    <p>copy the code below and paste it to the textarea of the <strong>SQL</strong> page. Click <strong>Go</strong>.</p>
+    <pre><code class="hljs language-abnf">   CALL RETRIEVE_ALL<span class="hljs-comment">;  </span>
+</code></pre>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc3.png" alt="image">
+    </p>
+    <ol start="4">
+      <li>You can view the created stored procedure routine RETRIEVE_ALL. Click on the <strong>Routines</strong> and view the procedure.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc4.png" alt="image">
+    </p>
+    <ol start="5">
+      <li>If you wish to drop the stored procedure routine RETRIEVE_ALL, copy the code below and paste it to the textarea of the <strong>SQL</strong> page. Click</li>
+    </ol>
+    <p><strong>Go</strong>.</p>
+    <pre><code class="hljs language-cal">   DROP <span class="hljs-function"><span class="hljs-keyword">PROCEDURE</span> <span class="hljs-title">RETRIEVE_ALL</span>;</span>
+
+   CALL RETRIEVE_ALL;
+</code></pre>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc5.png" alt="image">
+    </p><br>
+    <h1>Exercise 2</h1>
+    <p>In this exercise, you will create and execute a stored procedure to write/modify data in a table on Db2 using SQL.</p>
+    <ol>
+      <li>
+        <p>Make sure you have created and populated the <strong>PETSALE</strong> table following the steps in the <strong>"Data Used in this Lab"</strong> section of this lab.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/Labs_Coursera_V5/labs/Lab%20-%20Stored%20Procedures/images/PETSALE_table_v2.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <ul>
+          <li>You will create a stored procedure routine named <strong>UPDATE_SALEPRICE</strong> with parameters <strong>Animal_ID</strong> and <strong>Animal_Health</strong>.</li>
+          <li>This <strong>UPDATE_SALEPRICE</strong> routine will contain SQL queries to update the sale price of the animals in the PETSALE table depending on their</li>
+        </ul>
+        <p>health conditions, <strong>BAD</strong> or <strong>WORSE</strong>.</p>
+        <ul>
+          <li>This procedure routine will take animal ID and health conditon as parameters which will be used to update the sale price of animal in the</li>
+        </ul>
+        <p>
+          PETSALE table by an amount depending on their health condition. Suppose -
+          * For animal with ID XX having BAD health condition, the sale price will be reduced further by 25%.
+          * For animal with ID YY having WORSE health condition, the sale price will be reduced further by 50%.
+          * For animal with ID ZZ having other health condition, the sale price won't change.
+        </p>
+      </li>
+    </ol>
+    <ul>
+      <li>
+        <p>To create the stored procedure routine, copy the code below and paste it to the textarea of the <strong>SQL</strong> page. Click <strong>Go</strong>.</p>
+        <p></p>
+      </li>
+    </ul>
+    <pre><code class="hljs language-ini">DELIMITER @
+CREATE PROCEDURE UPDATE_SALEPRICE ( 
+   IN Animal_ID INTEGER, IN Animal_Health VARCHAR(5) )     
+BEGIN 
+
+   IF <span class="hljs-attr">Animal_Health</span> = <span class="hljs-string">'BAD'</span> THEN                           
+       UPDATE PETSALE
+       SET <span class="hljs-attr">SALEPRICE</span> = SALEPRICE - (SALEPRICE * <span class="hljs-number">0.25</span>)
+       WHERE <span class="hljs-attr">ID</span> = Animal_ID<span class="hljs-comment">;</span>
+   
+   ELSEIF <span class="hljs-attr">Animal_Health</span> = <span class="hljs-string">'WORSE'</span> THEN
+       UPDATE PETSALE
+       SET <span class="hljs-attr">SALEPRICE</span> = SALEPRICE - (SALEPRICE * <span class="hljs-number">0.5</span>)
+       WHERE <span class="hljs-attr">ID</span> = Animal_ID<span class="hljs-comment">;</span>
+       
+   ELSE
+       UPDATE PETSALE
+       SET <span class="hljs-attr">SALEPRICE</span> = SALEPRICE
+       WHERE <span class="hljs-attr">ID</span> = Animal_ID<span class="hljs-comment">;</span>
+
+   END IF<span class="hljs-comment">;                                                 </span>
+   
+END @
+
+DELIMITER <span class="hljs-comment">;</span>
+             
+</code></pre>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc6.png" alt="image">
+    </p>
+    <ol start="3">
+      <li>Let's call the UPDATE_SALEPRICE routine. We want to update the sale price of animal with ID <strong>1</strong> having <strong>BAD</strong> health condition in the</li>
+    </ol>
+    <p>PETSALE table. open another <strong>SQL</strong> tab by clicking <strong>Open in new Tab</strong></p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc2.png" alt="image">
+    </p>
+    <p>Delete the default line which appears so that you will get a blank window.</p>
+    <p>copy the code below and paste it to the textarea of the <strong>SQL</strong> page. Click <strong>Go</strong>.</p>
+    <blockquote>
+      <p>Note if you have dropped RETREIVE_ALL procedure rerun the creation script of that procedure before executing these lines.</p>
+    </blockquote>
+    <pre><code class="hljs language-autoit">   <span class="hljs-built_in">CALL</span> RETRIEVE_ALL<span class="hljs-comment">;</span>
+
+   <span class="hljs-built_in">CALL</span> UPDATE_SALEPRICE(<span class="hljs-number">1</span>, <span class="hljs-string">'BAD'</span>)<span class="hljs-comment">;       </span>
+
+   <span class="hljs-built_in">CALL</span> RETRIEVE_ALL<span class="hljs-comment">;</span>
+</code></pre>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc7.png" alt="image">
+    </p>
+    <ol start="4">
+      <li>Let's call the UPDATE_SALEPRICE routine once again. We want to update the sale price of animal with ID <strong>3</strong> having <strong>WORSE</strong> health condition</li>
+    </ol>
+    <p>
+      in the PETSALE table. copy the code below and paste it to the textarea of the <strong>SQL</strong> page. Click <strong>Go</strong>. You will have all the records retrieved
+      from the PETSALE table.
+    </p>
+    <pre><code class="hljs language-autoit">   <span class="hljs-built_in">CALL</span> RETRIEVE_ALL<span class="hljs-comment">;</span>
+
+   <span class="hljs-built_in">CALL</span> UPDATE_SALEPRICE(<span class="hljs-number">3</span>, <span class="hljs-string">'WORSE'</span>)<span class="hljs-comment">;     </span>
+
+   <span class="hljs-built_in">CALL</span> RETRIEVE_ALL<span class="hljs-comment">;</span>
+</code></pre>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc8.png" alt="image">
+    </p>
+    <ol start="5">
+      <li>You can view the created stored procedure routine UPDATE_SALEPRICE. Click on the <strong>Routines</strong> and view the procedure.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc10.png" alt="image">
+    </p>
+    <ol start="6">
+      <li>If you wish to drop the stored procedure routine UPDATE_SALEPRICE, copy the code below and paste it to the textarea of the <strong>SQL</strong> page. Click</li>
+    </ol>
+    <p><strong>Go</strong>.</p>
+    <pre><code class="hljs language-cal">  DROP <span class="hljs-function"><span class="hljs-keyword">PROCEDURE</span> <span class="hljs-title">UPDATE_SALEPRICE</span>;</span>
+
+  CALL UPDATE_SALEPRICE;
+</code></pre>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/proc11.png" alt="image">
+    </p><br>
+    <h3>Congratulations! You have completed this lab, and you are ready for the next topic.</h3>
+    <h3><br></h3>
+    <h1>Author(s)</h1>
+    <p><a href="https://www.linkedin.com/in/lakshmi-holla-b39062149/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2022-01-01" target="_blank" rel="external">Lakshmi Holla</a></p>
+    <p><a href="https://www.linkedin.com/in/malika-goyal-04798622/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2022-01-01" target="_blank" rel="external">Malika Singla</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2021-08-09</td>
+          <td>0.2</td>
+          <td>Sathya Priya</td>
+          <td>Updated HTML tags and SQL link</td>
+        </tr>
+        <tr>
+          <td>2021-11-01</td>
+          <td>0.1</td>
+          <td>Lakshmi Holla, Malika Singla</td>
+          <td>Initial Version</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2021. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/IDSNlogo.png" width="200" height="200">
+    <h1>Hands-on Lab: Working with Joins in MySQL using phpMyAdmin</h1>
+    <p><strong>Estimated time needed:</strong> 20 minutes</p>
+    <p>In this lab, you will learn how to create tables and load data in the MySQL database service using the phpMyAdmin graphical user interface (GUI) tool.</p>
+    <h1></h1>
+    <h2>Software Used in this Lab</h2>
+    <p>In this lab, you will use <a href="https://www.mysql.com/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2021-01-01">MySQL</a>. MySQL is a Relational Database Management System (RDBMS) designed to efficiently store, manipulate, and retrieve data.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/mysql.png" width="100" height="100">
+    <p></p>
+    <p>To complete this lab you will utilize MySQL relational database service available as part of IBM Skills Network Labs (SN Labs) Cloud IDE. SN Labs is a virtual lab environment used in this course.</p>
+    <h1></h1>
+    <h2>Database Used in this Lab</h2>
+    <p>The database used in this lab is an internal database. You will be working on a sample HR database. This HR database schema consists of 5 tables called <strong>EMPLOYEES</strong>, <strong>JOB_HISTORY</strong>, <strong>JOBS</strong>, <strong>DEPARTMENTS</strong> and <strong>LOCATIONS</strong>. Each table has a few rows of sample data. The following diagram shows the tables for the HR database:</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/Labs_Coursera_V5/labs/Lab%20-%20Create%20tables%20using%20SQL%20scripts%20and%20Load%20data%20into%20tables/images/Sample_1.PNG" width="670" height="400">
+    <p>In this lab, you will run through some SQL practice problems that will provide hands-on experience with the different kinds of join operations.</p><br>
+    <p><strong>How does a CROSS JOIN (also known as Cartesian Join) statement syntax look?</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s)
+<span class="hljs-keyword">FROM</span> table1
+<span class="hljs-keyword">CROSS</span> <span class="hljs-keyword">JOIN</span> table2;
+</code></pre><br>
+    <p><strong>How does an INNER JOIN statement syntax look?</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s)
+<span class="hljs-keyword">FROM</span> table1
+<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> table2
+<span class="hljs-keyword">ON</span> table1.<span class="hljs-built_in">column_name</span> = table2.<span class="hljs-built_in">column_name</span>;
+<span class="hljs-keyword">WHERE</span> condition;
+</code></pre><br>
+    <p><strong>How does a LEFT OUTER JOIN statement syntax look?</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s)
+<span class="hljs-keyword">FROM</span> table1
+<span class="hljs-keyword">LEFT OUTER JOIN</span> table2
+<span class="hljs-keyword">ON</span> table1.<span class="hljs-built_in">column_name</span> = table2.<span class="hljs-built_in">column_name</span>
+<span class="hljs-keyword">WHERE</span> condition;
+</code></pre><br>
+    <p><strong>How does a RIGHT OUTER JOIN statement syntax look?</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s)
+<span class="hljs-keyword">FROM</span> table1
+<span class="hljs-keyword">RIGHT OUTER JOIN</span> table2
+<span class="hljs-keyword">ON</span> table1.<span class="hljs-built_in">column_name</span> = table2.<span class="hljs-built_in">column_name</span>
+<span class="hljs-keyword">WHERE</span> condition;
+</code></pre><br>
+    <p><strong>How does a FULL OUTER JOIN statement syntax look?</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s)
+<span class="hljs-keyword">FROM</span> table1
+<span class="hljs-keyword">LEFT  OUTER JOIN</span> table2
+<span class="hljs-keyword">ON</span> table1.<span class="hljs-built_in">column_name</span> = table2.<span class="hljs-built_in">column_name</span>
+<span class="hljs-keyword">WHERE</span> condition
+
+<span class="hljs-keyword">UNION</span>
+
+<span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s)
+<span class="hljs-keyword">FROM</span> table1
+<span class="hljs-keyword">RIGHT  OUTER JOIN</span> table2
+<span class="hljs-keyword">ON</span> table1.<span class="hljs-built_in">column_name</span> = table2.<span class="hljs-built_in">column_name</span>
+<span class="hljs-keyword">WHERE</span> condition
+</code></pre>
+    <p><strong>Union operator</strong></p>
+    <p>The UNION operator is used to combine the result-set of two or more SELECT statements.</p>
+    <p>
+      Every SELECT statement within UNION must have the same number of columns
+      The columns must also have similar data types
+      The columns in every SELECT statement must also be in the same order
+    </p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s) <span class="hljs-keyword">FROM</span> table1
+<span class="hljs-keyword">UNION</span>
+<span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">column_name</span>(s) <span class="hljs-keyword">FROM</span> table2;
+
+</code></pre><br>
+    <p><strong>How does a SELF JOIN statement syntax look?</strong></p>
+    <pre><code class="hljs language-apache"><span class="hljs-attribute">SELECT</span> column_name(s)
+<span class="hljs-attribute">FROM</span> table<span class="hljs-number">1</span> T<span class="hljs-number">1</span>, table<span class="hljs-number">1</span> T<span class="hljs-number">2</span>
+<span class="hljs-attribute">WHERE</span> condition;
+</code></pre><br># Exercise
+    <ol>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Select the names and job start dates of all employees who work for the department number 5.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use the Inner join operation with the EMPLOYEES table as the left table and the JOB_HISTORY table as the right table.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.F_NAME,<span class="hljs-built_in">E</span>.L_NAME, JH.START_DATE 
+<span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">as</span> <span class="hljs-built_in">E</span> 
+<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> JOB_HISTORY <span class="hljs-keyword">as</span> JH <span class="hljs-keyword">on</span> <span class="hljs-built_in">E</span>.EMP_ID=JH.EMPL_ID 
+<span class="hljs-keyword">where</span> <span class="hljs-built_in">E</span>.DEP_ID =<span class="hljs-string">'5'</span>;	
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/1.A.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Select the names, job start dates, and job titles of all employees who work for the department number 5.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Perform an INNER JOIN with 3 tables â€“ EMPLOYEES, JOB_HISTORY, JOBS.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.F_NAME,<span class="hljs-built_in">E</span>.L_NAME, JH.START_DATE, J.JOB_TITLE 
+<span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">as</span> <span class="hljs-built_in">E</span> 
+<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> JOB_HISTORY <span class="hljs-keyword">as</span> JH <span class="hljs-keyword">on</span> <span class="hljs-built_in">E</span>.EMP_ID=JH.EMPL_ID 
+<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> JOBS <span class="hljs-keyword">as</span> J <span class="hljs-keyword">on</span> <span class="hljs-built_in">E</span>.JOB_ID=J.JOB_IDENT
+<span class="hljs-keyword">where</span> <span class="hljs-built_in">E</span>.DEP_ID =<span class="hljs-string">'5'</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/1.B.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p>*Perform a Left Outer Join on the EMPLOYEES and DEPARTMENT tables and select employee id, last name, department id and department name for</p>
+        </blockquote>
+        <p>all employees.*</p>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use the Left Outer Join operation with the EMPLOYEES table as the left table and the DEPARTMENTS table as the right table.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.EMP_ID,<span class="hljs-built_in">E</span>.L_NAME,<span class="hljs-built_in">E</span>.DEP_ID,D.DEP_NAME
+<span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">AS</span> <span class="hljs-built_in">E</span> 
+<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> DEPARTMENTS <span class="hljs-keyword">AS</span> D <span class="hljs-keyword">ON</span> <span class="hljs-built_in">E</span>.DEP_ID=D.DEPT_ID_DEP;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/2.A.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Re-write the previous query but limit the result set to include only the rows for employees born before 1980.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use a WHERE clause and Left Outer Join operation. Alternatively, you could also use an INNER JOIN.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.EMP_ID,<span class="hljs-built_in">E</span>.L_NAME,<span class="hljs-built_in">E</span>.DEP_ID,D.DEP_NAME
+<span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">AS</span> <span class="hljs-built_in">E</span> 
+<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> DEPARTMENTS <span class="hljs-keyword">AS</span> D <span class="hljs-keyword">ON</span> <span class="hljs-built_in">E</span>.DEP_ID=D.DEPT_ID_DEP 
+<span class="hljs-keyword">where</span> YEAR(<span class="hljs-built_in">E</span>.B_DATE) &#x3C; <span class="hljs-number">1980</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/2.B.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Re-write the previous query but have the result set include all the employees but department names for only the employees who were born before 1980.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use an AND in the LEFT OUTER JOIN clause.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.EMP_ID,<span class="hljs-built_in">E</span>.L_NAME,<span class="hljs-built_in">E</span>.DEP_ID,D.DEP_NAME
+<span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">AS</span> <span class="hljs-built_in">E</span> 
+<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> DEPARTMENTS <span class="hljs-keyword">AS</span> D <span class="hljs-keyword">ON</span> <span class="hljs-built_in">E</span>.DEP_ID=D.DEPT_ID_DEP 
+<span class="hljs-keyword">AND</span> YEAR(<span class="hljs-built_in">E</span>.B_DATE) &#x3C; <span class="hljs-number">1980</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/2.C.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Perform a Full Join on the EMPLOYEES and DEPARTMENT tables and select the First name, Last name and Department name of all employees.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Use the Full Outer Join operation with the EMPLOYEES table as the left table and the DEPARTMENTS table as the right table.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.F_NAME,<span class="hljs-built_in">E</span>.L_NAME,D.DEP_NAME
+<span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">AS</span> <span class="hljs-built_in">E</span> 
+<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> DEPARTMENTS <span class="hljs-keyword">AS</span> D <span class="hljs-keyword">ON</span> <span class="hljs-built_in">E</span>.DEP_ID=D.DEPT_ID_DEP
+
+<span class="hljs-keyword">UNION</span>
+
+<span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.F_NAME,<span class="hljs-built_in">E</span>.L_NAME,D.DEP_NAME
+<span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">AS</span> <span class="hljs-built_in">E</span> 
+<span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> DEPARTMENTS <span class="hljs-keyword">AS</span> D <span class="hljs-keyword">ON</span> <span class="hljs-built_in">E</span>.DEP_ID=D.DEPT_ID_DEP
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/3.A.png" alt="image">
+          </p>
+        </details>
+      </li>
+      <li>
+        <p>Problem:</p>
+        <blockquote>
+          <p><em>Re-write the previous query but have the result set include all employee names but department id and department names only for male employees.</em></p>
+        </blockquote>
+        <details>
+          <summary>Hint</summary>
+          <blockquote>
+            <p>Add an AND in Query 3A to filter on male employees in the ON clause. Alternatively, you can also use Left Outer Join.</p>
+          </blockquote>
+        </details>
+        <details>
+          <summary>Solution</summary>
+          <pre><code class="hljs language-n1ql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.F_NAME,<span class="hljs-built_in">E</span>.L_NAME,D.DEPT_ID_DEP, D.DEP_NAME
+<span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">AS</span> <span class="hljs-built_in">E</span> 
+<span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> DEPARTMENTS <span class="hljs-keyword">AS</span> D <span class="hljs-keyword">ON</span> <span class="hljs-built_in">E</span>.DEP_ID=D.DEPT_ID_DEP <span class="hljs-keyword">AND</span> <span class="hljs-built_in">E</span>.SEX = <span class="hljs-string">'M'</span>
+
+
+<span class="hljs-keyword">UNION</span>
+
+<span class="hljs-keyword">select</span> <span class="hljs-built_in">E</span>.F_NAME,<span class="hljs-built_in">E</span>.L_NAME,D.DEPT_ID_DEP, D.DEP_NAME
+<span class="hljs-keyword">from</span> EMPLOYEES <span class="hljs-keyword">AS</span> <span class="hljs-built_in">E</span> 
+<span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> DEPARTMENTS <span class="hljs-keyword">AS</span> D <span class="hljs-keyword">ON</span> <span class="hljs-built_in">E</span>.DEP_ID=D.DEPT_ID_DEP <span class="hljs-keyword">AND</span> <span class="hljs-built_in">E</span>.SEX = <span class="hljs-string">'M'</span>;
+</code></pre>
+        </details>
+        <details>
+          <summary>Output</summary>
+          <p>
+            <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/3.B.png" alt="image">
+          </p>
+        </details>
+      </li>
+    </ol><br>
+    <h1>Solution Script</h1>
+    <p>If you would like to run all the solution queries of the SQL problems of this lab with a script, download the script below. Import the script to mysql phpadmin interface. Follow <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week2/Create_and%20_Load.md.html" target="_blank" rel="external">Hands-on Lab : Create tables using SQL scripts and Load data into tables</a> on how to import a script to mysql phpadmin interface.</p>
+    <ul>
+      <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/JOIN_Solution_Script.sql" target="_blank" rel="external">JOIN_Solution_Script.sql</a></li>
+    </ul><br>
+    <h3>Congratulations! You have completed this lab, and you are ready for the next topic.</h3>
+    <h3><br></h3>
+    <h1>Author(s)</h1>
+    <p><a href="https://www.linkedin.com/in/lakshmi-holla-b39062149/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2022-01-01" target="_blank" rel="external">Lakshmi Holla</a></p>
+    <p><a href="https://www.linkedin.com/in/malika-goyal-04798622/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2022-01-01" target="_blank" rel="external">Malika Singla</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2021-08-09</td>
+          <td>0.2</td>
+          <td>Sathya Priya</td>
+          <td>Updated SQL link</td>
+        </tr>
+        <tr>
+          <td>2021-11-01</td>
+          <td>0.1</td>
+          <td>Lakshmi Holla, Malika Singla</td>
+          <td>Initial Version</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2021. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

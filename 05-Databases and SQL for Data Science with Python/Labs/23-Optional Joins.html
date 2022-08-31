@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/IDSNlogo.png" width="200" height="200">
+    <h1>Hands-on Lab: Joins in MySQL using phpMyAdmin</h1>
+    <p><strong>Estimated time needed:</strong> 20 minutes</p>
+    <p>In this lab, you will learn how to create tables and load data in the MySQL database service using the phpMyAdmin graphical user interface (GUI) tool.</p>
+    <h1></h1>
+    <h2>Software Used in this Lab</h2>
+    <p>In this lab, you will use <a href="https://www.mysql.com/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2021-01-01">MySQL</a>. MySQL is a Relational Database Management System (RDBMS) designed to efficiently store, manipulate, and retrieve data.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/mysql.png" width="100" height="100">
+    <p></p>
+    <p>To complete this lab you will utilize MySQL relational database service available as part of IBM Skills Network Labs (SN Labs) Cloud IDE. SN Labs is a virtual lab environment used in this course.</p>
+    <h1>Objectives</h1>
+    <p>After completing this lab, you will be able to:</p>
+    <ol>
+      <li>
+        <p>Determine the correct type of join to use for a given problem.</p>
+      </li>
+      <li>
+        <p>Write and execute joins to query data from multiple tables.</p>
+      </li>
+    </ol><br>
+    <h2>Database Used in this Lab</h2>
+    <p><strong>Mysql_learners</strong> database has been used in this lab.</p>
+    <p>Here you will be creating and inserting data into the below mentioned 3 tables</p>
+    <p>
+      1.chicago_public_schools
+      2.chicago_socioeconomic_data
+      3.chicago_crime
+    </p>
+    <p>Here you will be using 3 dump files for this purpose.</p>
+    <p><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week5/chicago_public_schools.sql?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01">chicago_public_schools</a></p>
+    <p><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week5/chicago_crime.sql?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01">chicago_crime</a></p>
+    <p><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week5/chicago_socioeconomic_data.sql?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01">chicago_socioeconomic_data</a></p>
+    <h3>Task A: Create a database</h3>
+    <ol>
+      <li>Click on <strong>Skills Network Toolbox</strong>. In <strong>Database</strong> section, click <strong>MySQL</strong>.</li>
+    </ol>
+    <p>To start the MySQL click <strong>Start</strong>.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/php1.png" alt="image">
+    </p><br>
+    <ol start="2">
+      <li>Once <strong>MySQL</strong> has started, click on <strong>phpMyAdmin button</strong> to open <strong>phpMyAdmin</strong> in the same window.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week6/images/php2.png" alt="image">
+    </p><br>
+    <ol start="3">
+      <li>
+        <p>You will see the phpMyAdmin GUI tool.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20MySQL%20using%20phpMyAdmin/images/2.4.png" alt="image">
+        </p>
+      </li>
+    </ol><br>
+    <ol start="4">
+      <li>
+        <p>In the tree-view, click <strong>New</strong> to create a new empty database. Then enter <strong>Mysql_Learners</strong> as the name of the database and click <strong>Create</strong>.</p>
+        <p>The encoding will be left as <strong>utf8mb4_0900_ai_ci</strong>. UTF-8 is the most commonly used character encoding for content or data.</p>
+        <p>Proceed to Task B.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week5/images/db1.png" alt="image">
+        </p>
+      </li>
+    </ol>
+    <p>
+      Load the dump files one by one into the database <strong>Mysql_learners</strong> by clicking the <strong>Import</strong> tab and choose the file.
+      Click on <strong>Go</strong> button.
+    </p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week5/images/dump1.png" alt="image">
+    </p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week5/images/dump2.png" alt="image">
+    </p>
+    <p>The tables are created and the data is loaded successfully. Repeat the same operation with the other 2 dump files to create and load the tables.</p>
+    <p>You will see a screen as below</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/MySQL/week5/images/dump3.png" alt="image">
+    </p>
+    <h1>Exercise</h1>
+    <h3>Problem 1</h3>
+    <h5>List the case number, type of crime and community area for all crimes in community area number 18.</h5>
+    <details>
+      <summary>Hint 1</summary>Use tables chicago_public_schools and chicago_socioeconomic_data.
+    </details>
+    <details>
+      <summary>Hint 2</summary>Use an inner join.
+    </details>
+    <details>
+      <summary>Hint 3</summary>The column PRIMARY_TYPE contains the crime type.
+    </details>
+    <h3>Problem 2</h3>
+    <h5>List all crimes that took place at a school. Include case number, crime type and community name.</h5>
+    <details>
+      <summary>Hint 1</summary>Use tables chicago_crime and chicago_socioeconomic_data.
+    </details>
+    <details>
+      <summary>Hint 2</summary>Use a left join or a right join.
+    </details>
+    <details>
+      <summary>Hint 3</summary>The column LOCATION_DESCRIPTION will help you find the crime location.
+    </details>
+    <h3>Problem 3</h3>
+    <h5>For the communities of Oakland, Armour Square, Edgewater and CHICAGO list the associated community_area_numbers and the case_numbers.</h5>
+    <details>
+      <summary>Hint 1</summary>Use tables chicago_crime and chicago_socioeconomic_data.
+    </details>
+    <details>
+      <summary>Hint 2</summary>Use the union operator with LEFT and RIGHT outer joins.
+    </details>
+    <details>
+      <summary>Hint 3</summary>Use COMMUNITY_AREA_NUMBER from chicago_socioeconomic_data.
+    </details><br>
+    <h3>Congratulations! You have completed this lab, and you are ready for the next topic.</h3>
+    <h3><br></h3>
+    <h1>Author(s)</h1>
+    <p><a href="https://www.linkedin.com/in/lakshmi-holla-b39062149/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01" target="_blank" rel="external">Lakshmi Holla</a></p>
+    <p><a href="https://www.linkedin.com/in/malika-goyal-04798622/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2021-01-01" target="_blank" rel="external">Malika Singla</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2022-05-11</td>
+          <td>0.3</td>
+          <td>Appalabhaktula Hema</td>
+          <td>Updated hint</td>
+        </tr>
+        <tr>
+          <td>2022-04-07</td>
+          <td>0.2</td>
+          <td>Malika Singla</td>
+          <td>Updated screenshot</td>
+        </tr>
+        <tr>
+          <td>2022-02-10</td>
+          <td>0.1</td>
+          <td>Lakshmi Holla, Malika Singla</td>
+          <td>Initial Version</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2022. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
