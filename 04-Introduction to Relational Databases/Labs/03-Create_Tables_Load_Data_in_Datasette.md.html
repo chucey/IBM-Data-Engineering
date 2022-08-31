@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/SN_web_lightmode.png">
+    <h1>Hands-on Lab: Create Tables and Load Data in Datasette</h1>
+    <p><strong>Estimated time needed:</strong> 20 minutes.</p>
+    <p>In this lab, you will learn how to create tables and load data in Datasette.</p>
+    <h2>Software Used in this Lab</h2>
+    <p>In this lab, you will use <a href="https://github.com/simonw/datasette?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2022-01-01" target="_blank">Datasette, </a>an open-source multi-tool for exploring and publishing data.</p>
+    <h2>Dataset Used in this Lab</h2>
+    <p>Two datasets are used in this lab - PETSHOP and BookShop.</p>
+    <ul>
+      <li>
+        <p>PETSHOP:</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/PETSHOP_table.png">
+      </li>
+      <li>
+        <p>BookShop:</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/BookShop_table.png">
+      </li>
+    </ul>
+    <h2>Objectives</h2>
+    <p>After completing this lab, you can:</p>
+    <ul>
+      <li>Create and Load data into a table from a CSV file.</li>
+      <li>Create and Load data into a table from a SQL script file.</li>
+    </ul>
+    <h2>Exercise 1: Create a table by loading a CSV file using Datasette</h2>
+    <p>In this exercise, you will learn how to load a CSV file and create a table using the Datasette tool.</p>
+    <ol>
+      <li>
+        <p>Once the Datasette tool is launched using the <strong>Open tool</strong>, click on the <strong>Navigation Pane</strong> at the right-end corner and then click on <strong>Add DataSets</strong> option.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/Fig1.PNG" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>You will then be redirected to a page where you need to enter the full URL of the CSV dataset in the text box.</p>
+        <ul>
+          <li>Right-click on the link</li>
+        </ul>
+      </li>
+    </ol>
+    <p><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/datasets/PET_Tables/PETSHOP.csv" target="_blank" rel="external">PETSHOP.csv</a> and copy the link address.</p>
+    <pre><code class="hljs language-livecodeserver">* Enter <span class="hljs-keyword">the</span> copied <span class="hljs-built_in">URL</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> <span class="hljs-keyword">text</span> box <span class="hljs-keyword">and</span> click <span class="hljs-keyword">on</span> <span class="hljs-title">the</span> **<span class="hljs-title">create</span>** <span class="hljs-title">button</span>.
+
+ 
+</code></pre>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/Fig2.PNG" alt="image">
+    </p>
+    <ol start="3">
+      <li>
+        <p>The PETSHOP table will be created with the data loaded from the CSV file. By default, a <strong>SELECT</strong> query related to the table will appear on the <strong>text area</strong> section of the following webpage. Click on the <strong>Submit Query</strong> button to view the results.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/Fig3.PNG" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Next, modify the <strong>SELECT</strong> query as follows:</p>
+        <pre><code class="hljs language-sql"><span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">from</span> PETSHOP
+</code></pre>
+      </li>
+    </ol>
+    <p></p>
+    <p>This will display 5 rows on executing the query.</p>
+    <p>After loading has been completed, you will notice that you were successful in loading all 5 rows of the PETSHOP table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/Fig4.PNG" alt="image">
+    </p>
+    <ol start="5">
+      <li>You have successfully created and loaded the <strong>PETSHOP</strong> table.</li>
+    </ol>
+    <h2>Exercise 2: Create and load data in the table using an SQL script file</h2>
+    <p>In this exercise, you will learn how to create a table and load data into it by executing a script containing the CREATE and INSERT SQL commands.</p>
+    <ol>
+      <li>Download the script file to your computer:</li>
+    </ol>
+    <ul>
+      <li><a href="./data/BookShop-CREATE-INSERT.sql">BookShop-CREATE-INSERT.sql</a></li>
+    </ul><br>
+    <ol start="2">
+      <li>Open the script file using <strong>Notepad</strong> or any <strong>text editor</strong>.</li>
+    </ol>
+    <ul>
+      <li>
+        <p><strong>Copy</strong> the contents of the <strong>script</strong> file and paste it in the datasette <strong>text area</strong>.</p>
+        <ul>
+          <li>
+            <p>Click on <strong>Submit query</strong> button.</p>
+          </li>
+          <li>
+            <p>The queries get executed.</p>
+          </li>
+        </ul>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/Fig5.PNG" alt="image">
+        </p>
+      </li>
+    </ul>
+    <ol start="3">
+      <li>Next, click on <strong>home</strong> link at the top of the page in the tool.</li>
+    </ol><br>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/Fig6.PNG" alt="image">
+    </p>
+    <ol start="4">
+      <li>
+        <p>This will redirect to a page where <strong>Databases and Tables</strong> are displayed.</p>
+        <ul>
+          <li>Click on the <strong>BookShop</strong> table under the <strong>PetShop</strong> Database.</li>
+        </ul>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/Fig7.PNG" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>You will be able to view the <strong>columns</strong> and <strong>data</strong> of the <strong>Bookshop</strong> table.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/Fig8.PNG" alt="image">
+        </p>
+      </li>
+    </ol><br>
+    <h3>Congratulations! You have completed this lab, and you are ready for the next topic.</h3><br>
+    <h1>Author(s)</h1>
+    <ul>
+      <li>
+        <p><a href="https://www.linkedin.com/in/sandipsahajoy/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2022-01-01" target="_blank" rel="external">Sandip Saha Joy</a></p>
+      </li>
+      <li>
+        <p><a href="https://www.linkedin.com/in/lakshmi-holla-b39062149/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2022-01-01" target="_blank" rel="external">Lakshmi Holla</a></p>
+      </li>
+    </ul>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>14-06-2022</td>
+          <td>1.2</td>
+          <td>Lakshmi Holla</td>
+          <td>Converted intial version to DataSette</td>
+        </tr>
+        <tr>
+          <td>29-07-2021</td>
+          <td>1.1</td>
+          <td>Lakshmi Holla</td>
+          <td>Modified as per new DB2 UI</td>
+        </tr>
+        <tr>
+          <td>16-03-2020</td>
+          <td>1.0</td>
+          <td>Sandip Saha Joy</td>
+          <td>Created initial version</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2022. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

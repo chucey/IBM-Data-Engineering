@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/IDSNlogo.png" width="200" height="200">
+    <h1>Hands-on Lab: Create Tables and Load Data in Db2</h1>
+    <p><strong>Estimated time needed:</strong> 30 minutes</p>
+    <p>In this lab, you will learn how to create tables and load data in Db2.</p>
+    <h2>Software Used in this Lab</h2>
+    <p>In this lab, you will use <a href="https://www.ibm.com/products/db2-database?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2022-01-01" target="_blank">IBM Db2 Database</a>. Db2 is a Relational Database Management System (RDBMS) from IBM, designed to store, analyze and retrieve the data efficiently.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/ibmdb2.png" width="245" height="100">
+    <p>To complete this lab you will utilize a Db2 database service on IBM Cloud. If you did not complete the lab below earlier, you may not have access to Db2 on Cloud and should complete that lab before starting this lab.</p>
+    <ul>
+      <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Sign%20up%20for%20IBM%20Cloud%20-%20Create%20Db2%20service%20instance/instructional-labs.md.html" target="_blank" rel="external">Hands-on Lab : Sign up for IBM Cloud and Create Db2 service instance</a></li>
+    </ul>
+    <h2>Dataset Used in this Lab</h2>
+    <p>Two datasets are used in this lab - PETSHOP and BookShop.</p>
+    <ul>
+      <li>
+        <p>PETSHOP table:</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/PETSHOP_table.png" width="1250" height="250">
+      </li>
+      <li>
+        <p>BookShop table:</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/BookShop_table.png" width="1380" height="200">
+      </li>
+    </ul>
+    <h2>Objectives</h2>
+    <p>After completing this lab, you will be able to:</p>
+    <ul>
+      <li>Create a table structure using the Db2 UI</li>
+      <li>Load data into a table from a CSV file</li>
+      <li>Create a table structure and load data using an SQL script file</li>
+    </ul>
+    <h2>Exercise 1: Create table structure through Db2 UI</h2>
+    <p>In this exercise, you will learn how to create a table structure using the Db2 UI.</p>
+    <ol>
+      <li>
+        <p>To access your database instance, go to your IBM Cloud Resource List (you may need to log into IBM Cloud in the process) directly at: <a href="https://cloud.ibm.com/resources?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2022-01-01" target="_blank" rel="external">cloud.ibm.com/resources</a></p>
+        <ul>
+          <li>
+            <p><strong>Alternative</strong>: Go to your IBM Cloud dashboard (you may need to login to IBM Cloud in the process) at: <a href="https://cloud.ibm.com/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2022-01-01" target="_blank" rel="external">cloud.ibm.com</a> and click <strong>Services</strong>.</p>
+            <p>
+              <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/Services.jpg" alt="Services include the new database instance.">
+            </p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>In the Resource list, expand the <strong>Services</strong> and locate and click on your instance of Db2 you provisioned in exercise 2 (the name typically starts with Db2-xx for example Db2-fk, Db2-50, etc.)</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/ServicesDb2xx.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Click on the <strong>Go to UI</strong> button.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/gotoUI1.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>
+          Click on the data icon in the left corner and then click on the <strong>Tables</strong> tab. Later select your schema.<br>It typically starts with 3 letters (not SQL) followed by 5 numbers (but will be different from the <strong>SRW76180</strong> example below).
+          Then click on <strong>New table</strong>
+        </p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/new_table.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>The <strong>New Table</strong> creation window will appear. Name the table as <strong>PETSHOP</strong>. Then add 4 more columns by clicking <strong>Add column</strong> four times.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/add_column.png" width="600" height="600">
+      </li>
+      <li>
+        <p>Now configure the table structure like the image below. Then click <strong>Create</strong>.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/1.7.png" width="600" height="600">
+      </li>
+      <li>
+        <p>You have successfully created <strong>PETSHOP</strong> table.</p>
+      </li>
+    </ol>
+    <h2>Exercise 2: Load data into tables using CSV files</h2>
+    <p>In this exercise, you will learn how data can be loaded into Db2. You could manually insert each row into the table one by one, but that would take a long time. Instead, Db2 (and almost every other database) allows you to load data from CSV files.</p>
+    <p>The steps below explain the process of loading data into the table you created earlier in Exercise 1.</p>
+    <ol>
+      <li>
+        <p>Download the PETSHOP.csv file below to your local computer:</p>
+        <ul>
+          <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/datasets/PET_Tables/PETSHOP.csv" target="_blank" rel="external">PETSHOP.csv</a></li>
+        </ul>
+      </li>
+      <li>
+        <p>From the <strong>data</strong> icon on the left side of the <strong>Go to UI</strong> screen , click on the <strong>Load Data</strong> tab.<br>Click on the <strong>browse files</strong> link. Later browse for your file on the local machine.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/load_data.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Choose the file <strong>PETSHOP.csv</strong> that you downloaded to your computer and click <strong>Open</strong>.</p>
+      </li>
+      <li>
+        <p>Once the file is selected, select your schema and then click <strong>Next</strong> button.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/clicknext.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>It will show all the tables that have been created in this schema, including the PETSHOP table. Select the <strong>PETSHOP</strong> table, and in the new Table definition tab that appears, choose <strong>Overwrite table with new data</strong> (note the warning message), then click <strong>Next</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/selectPetshop.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Because the source data file contains row with column labels, ensure that the <strong>Header in first row</strong> option is selected.</p>
+        <ul>
+          <li><strong>Note:</strong> Sometimes you may need to select correct <strong>Time &#x26; date format</strong> according to the way the date is formatted in the source data file.</li>
+        </ul>
+        <p></p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/headerinfirstrow.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Click <strong>Next</strong>. Review the load settings and click <strong>Begin Load</strong> in the bottom right-hand corner.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/beginload.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>After loading has completed, you will notice that you were successful in loading all 5 rows of the PETSHOP table. If there are any <strong>Errors</strong> or <strong>Warnings</strong>, you can see them on this screen.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/data_loaded.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>You can see the data that was loaded by clicking on <strong>View Table</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/view_data.png" alt="image">
+        </p>
+      </li>
+    </ol>
+    <h2>Exercise 3: Create table structure and load data using an SQL script file</h2>
+    <p>In this exercise, you will learn how to create a table and load data into it by executing a script containing the CREATE and INSERT SQL commands.</p>
+    <ol>
+      <li>
+        <p>Download the script file to your computer:</p>
+        <ul>
+          <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/datasets/BookShop/BookShop-CREATE-INSERT.sql" target="_blank" rel="external">BookShop-CREATE-INSERT.sql</a></li>
+        </ul>
+      </li>
+      <li>
+        <p>Click on the <strong>RUN SQL</strong> page in the <strong>Go to UI</strong> . The <strong>RUN SQL</strong> tool enables you to run SQL scripts/statements.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/run_sql_new.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Click on <strong>From file</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/create_new.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Locate the <strong>BookShop-CREATE-INSERT.sql</strong> file that you downloaded to your computer earlier and load it.</p>
+      </li>
+      <li>
+        <p>
+          Once the statements are in the RUN SQL tool , you can run the queries against the database by clicking the <strong>Run all</strong> button.
+          On the right-hand side of the RUN SQL tool, you will see a Result section. Clicking on the expand button for a query in the Result section will show the execution details of the job, such as whether it ran successfully or had any errors or warnings. Ensure your queries ran successfully and created all the tables.
+        </p>
+        <ul>
+          <li><strong>Note:</strong> You may see several errors before the successful creation of the table. These errors relate to the dropping (removal) of any pre-existing versions of these tables. You can ignore these errors.</li>
+        </ul>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/create_book.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>
+          Now you can look at the table you successfully created. Click on the <strong>data</strong> icon. Click on the <strong>Tables</strong> tab.
+          Select your schema and then check for the newly created bookshop table.If the newly created tables don't show up, click <strong>Refresh</strong>.
+        </p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/bookshopcreated.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Click on the table <strong>BOOKSHOP</strong> you created and you will see its table structure (that is, the list of columns, data types, etc).</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/viewbookshop.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Click on <strong>View Data</strong> to view the table data.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20Db2/images/viewbookdata.png" alt="image">
+        </p>
+      </li>
+    </ol>
+    <h3>Congratulations! You have completed this lab, and you are ready for the next topic.</h3>
+    <h3><br></h3>
+    <h1>Author(s)</h1>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/sandipsahajoy/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2022-01-01" target="_blank" rel="external">Sandip Saha Joy</a></li>
+    </ul>
+    <h1>Other Contributor(s)</h1>
+    <ul>
+      <li></li>
+    </ul>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>27-07-2022</td>
+          <td>1.2</td>
+          <td>Lakshmi Holla</td>
+          <td>updated numbers</td>
+        </tr>
+        <tr>
+          <td>29-07-2021</td>
+          <td>1.1</td>
+          <td>Lakshmi Holla</td>
+          <td>Modified as per new DB2 UI</td>
+        </tr>
+        <tr>
+          <td>16-03-2020</td>
+          <td>1.0</td>
+          <td>Sandip Saha Joy</td>
+          <td>Created initial version</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2021. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

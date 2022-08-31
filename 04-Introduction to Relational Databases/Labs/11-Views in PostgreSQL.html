@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/IDSNlogo.png" width="200" height="200">
+    <h1>Hands-on Lab : Views in PostgreSQL</h1>
+    <p><strong>Estimated time needed:</strong> 15 minutes</p>
+    <p>In this lab, you will learn how to create and execute views and materialized views in the PostgreSQL database service using the pgAdmin graphical user interface (GUI) tool. Materialized views behave differently compared to regular views. In materialized views, the result set is materialized, or saved for future use. You can't insert, update, or delete rows like in regular views. Essentially, materialized views store the results of a database query as a separate table-like object so that the query results can be accessed at a later time without having to re-run the query. As a result, materialized views can improve database performance compared to regular views.</p>
+    <h1>Software Used in this Lab</h1>
+    <p>In this lab, you will use the <a href="https://www.postgresql.org/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2022-01-01">PostgreSQL Database</a>. PostgreSQL is a Relational Database Management System (RDBMS) designed to efficiently store, manipulate, and retrieve the data.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/postgresql.png" width="130" height="100">
+    <p></p>
+    <p>To complete this lab you will utilize the PostgreSQL relational database service available as part of IBM Skills Network Labs (SN Labs) Cloud IDE. SN Labs is a virtual lab environment used in this course.</p>
+    <h1>Database Used in this Lab</h1>
+    <p>The eBooks database has been used in this lab.</p>
+    <p>The following ERD diagram shows the schema of the complete eBooks database used in this lab:</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/datasets/eBooks/eBooks_schema_complete.png" width="630" height="500">
+    <h1>Objectives</h1>
+    <p>After completing this lab, you will be able to use pgAdmin with PostgreSQL to:</p>
+    <ul>
+      <li>Restore a database schema and data.</li>
+      <li>Create and execute a view.</li>
+      <li>Create and execute a materialized view.</li>
+    </ul>
+    <h2>Lab Structure</h2>
+    <p>In this exercise, you will go through three tasks where you will learn how to create and execute views and materialized views in the PostgreSQL database service using the pgAdmin graphical user interface (GUI) tool.</p>
+    <h1>Task A: Restore a database schema and data</h1>
+    <p>To get started with this lab, you will first download the relevant <strong>eBooks</strong> database dump file, then launch PostgreSQL and pgAdmin using the Cloud IDE. You can do this by following these steps:</p>
+    <ol>
+      <li>
+        <p>Download the <strong>eBooks</strong> PostgreSQL dump file (containing the eBooks database schema and data) below to your local computer storage.</p>
+        <ul>
+          <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/datasets/eBooks/eBooks_pgsql_dump.tar" target="_blank" rel="external">eBooks_pgsql_dump.tar</a></li>
+        </ul>
+      </li>
+      <li>
+        <p>Click on the Skills Network extension button on the left side of the window.</p>
+      </li>
+      <li>
+        <p>Open the "DATABASES" drop down menu and click on "PostgreSQL"</p>
+      </li>
+      <li>
+        <p>Click on the "Start" button. PostgreSQL may take a few moments to start.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/SC_1.png" alt="SC_1">
+        </p>
+      </li>
+      <li>
+        <p>Next, open the pgAdmin Graphical User Interface by clicking the "pgAdmin" button in the Cloud IDE interface.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/pgAdmin_1.png" alt="pgAdmin_1">
+        </p>
+      </li>
+      <li>
+        <p>Once the pgAdmin GUI opens, click on the <code>Servers</code> tab on the left side of the page. You will be prompted to enter a password.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/pgAdmin_2.png" alt="pgAdmin_2">
+        </p>
+      </li>
+      <li>
+        <p>To retrieve your password, click on the "PostgreSQL" tab near the top of the interface.</p>
+      </li>
+    </ol><br>
+    <ol start="8">
+      <li>
+        <p>Click on the Copy icon to the left of your password to copy the session password onto your clipboard.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/pgAdmin_3.png" alt="pgAdmin_3">
+        </p>
+      </li>
+    </ol><br>
+    <ol start="9">
+      <li>
+        <p>Navigate back to the "pgAdmin" tab and paste in your password, then click <code>OK</code></p>
+      </li>
+      <li>
+        <p>You will then be able to access the pgAdmin GUI tool.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.5.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>In the tree-view, expand <strong>Servers</strong> > <strong>postgres</strong> > <strong>Databases</strong>. Enter your PostgreSQL service session password if prompted during the process. Right-click on <strong>Databases</strong> and go to <strong>Create > Database</strong>. Type <strong>eBooks</strong> as name of the database and click <strong>Save</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.6.1.png" alt="image">
+        </p>
+        <p></p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.6.2.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>In the tree-view, expand <strong>eBooks</strong>. Right-click on <strong>eBooks</strong> and select <strong>Restore</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.7.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Follow the instructions below to restore and proceed to Task B:</p>
+        <ul>
+          <li>
+            <p>On the <strong>General</strong> tab, click on the <strong>Select file</strong> button by the Filename box.</p>
+            <p>
+              <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.8.1.png" alt="image">
+            </p>
+          </li>
+          <li>
+            <p>Click the <strong>Upload File</strong> button.</p>
+            <p>
+              <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.8.2.png" alt="image">
+            </p>
+          </li>
+          <li>
+            <p>Double-click on the drop files area and load the <strong>eBooks_pgsql_dump.tar</strong> you downloaded earlier from your local computer storage.</p>
+            <p>
+              <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.8.3.png" alt="image">
+            </p>
+          </li>
+          <li>
+            <p>When the upload is complete, close the drop files area by clicking the <strong>X</strong> button.</p>
+            <p>
+              <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.8.4.png" alt="image">
+            </p>
+          </li>
+          <li>
+            <p>Make sure Format is set to <strong>All Files</strong>, select the uploaded <strong>eBooks_pgsql_dump.tar</strong> file from the list, and then click the <strong>Select</strong> button.</p>
+            <p>
+              <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.8.5.png" alt="image">
+            </p>
+          </li>
+          <li>
+            <p>Now switch to <strong>Restore options</strong> tab.</p>
+            <p>
+              <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.8.6.png" alt="image">
+            </p>
+          </li>
+          <li>
+            <p>Under Disable, set the Trigger option to <strong>Yes</strong>. Then click <strong>Restore</strong> button.</p>
+            <p>
+              <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/1.8.7.png" alt="image">
+            </p>
+          </li>
+        </ul>
+      </li>
+    </ol>
+    <h1>Task B: Create and execute a view</h1>
+    <ol>
+      <li>
+        <p>In the tree-view, expand <strong>eBooks > Schemas > public</strong>. Right-click on <strong>Views</strong> and go to <strong>Create > View</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/2.1.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>On the <strong>General</strong> tab, type <strong>publisher_and_rating_view</strong> as name of the view. Then switch to <strong>Code</strong> tab.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/2.2.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>On the <strong>Code</strong> tab, copy and paste the code below. Then click <strong>Save</strong>.</p>
+        <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> books.<span class="hljs-built_in">title</span>, books.rating, publishers.name 
+<span class="hljs-keyword">FROM</span> books <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> publishers <span class="hljs-keyword">ON</span> books.publisher_id = publishers.publisher_id
+</code></pre>
+        <p></p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/2.3.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>In the tree-view, expand <strong>Views</strong>. Right-click on <strong>publisher_and_rating_view</strong> and go to <strong>View/Edit Data > All Rows</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/2.4.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>You will access the view you created. This allows you to actually access and view the contents of tables in your database.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/2.5.png" alt="image">
+        </p>
+      </li>
+    </ol>
+    <h1>Task C: Create and execute a materialized view</h1>
+    <ol>
+      <li>
+        <p>In the tree-view, expand <strong>eBooks > Schemas > public</strong>. Right-click on <strong>Materialized Views</strong> and go to <strong>Create > Materialized View</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/3.1.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>On the <strong>General</strong> tab, type <strong>publisher_and_rating_materialized_view</strong> as name of the view. Then switch to the <strong>Definition</strong> tab.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/3.2.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>On the <strong>Definition</strong> tab, copy and paste the code below. Then click <strong>Save</strong>.</p>
+        <pre><code class="hljs language-n1ql"><span class="hljs-keyword">SELECT</span> books.<span class="hljs-built_in">title</span>, books.rating, publishers.name 
+<span class="hljs-keyword">FROM</span> books <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> publishers <span class="hljs-keyword">ON</span> books.publisher_id = publishers.publisher_id
+</code></pre>
+        <p></p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/3.3.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>In the tree-view, expand <strong>Materialized Views</strong>. Right-click on <strong>publisher_and_rating_materialized_view</strong> and go to <strong>Refresh View > With data</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/3.4.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Right-click on <strong>publisher_and_rating_materialized_view</strong> again and go to <strong>View/Edit Data > All Rows</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/3.5.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>You will access the materialized view you created.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Views%20in%20PostgreSQL/images/3.6.png" alt="image">
+        </p>
+        <p>As you can see, at first glance it doesn't look too different from the regular view you created earlier in this lab - indeed, from the user perspective it's essentially the same: you see the results of a query displayed in a table-like format. The difference is that this materialized view is cached in the database so that the data can be accessed again at a future time without having to re-run the database query, which can be intensive on the server depending on the complexity of the query and the size of the table being queried.</p>
+      </li>
+    </ol>
+    <h1></h1>
+    <h3>Congratulations! You have completed this lab, and you are ready for the next topic.</h3>
+    <h3><br></h3>
+    <h2>Author</h2>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/sandipsahajoy/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2022-01-01" target="_blank" rel="external">Sandip Saha Joy</a></li>
+    </ul>
+    <h2>Other Contributors</h2>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/david-pasternak-6b84a2208/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2022-01-01" target="_blank" rel="external">David Pasternak</a></li>
+    </ul>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2021-03-25</td>
+          <td>1.0</td>
+          <td>Sandip Saha Joy</td>
+          <td>Created initial version</td>
+        </tr>
+        <tr>
+          <td>2021-10-18</td>
+          <td>1.1</td>
+          <td>David Pasternak</td>
+          <td>Updated instructions</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2021. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
