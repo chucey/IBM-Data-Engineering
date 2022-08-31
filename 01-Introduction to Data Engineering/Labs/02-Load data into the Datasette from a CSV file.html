@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/Datasetteoptionallabs/Week3/images/SN_web_lightmode.png">
+    <h1>Hands-On Lab: Load data into the Datasette from a CSV file</h1>
+    <p><strong>Lab Overview:</strong></p>
+    <p>Now, that you have learned about the process of importing data into a data repository from varied sources, you will load data from a CSV file into the Datasette.</p>
+    <p><strong>Estimated time needed:</strong> 15 minutes</p>
+    <p><strong>Dataset used in this exercise:</strong></p>
+    <p>The dataset used in this exercise comes from the following source: <a href="https://www.kaggle.com/antfarol/car-sale-advertisements?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0100ENSkillsNetwork23053252-2022-01-01" target="_blank" rel="external">https://www.kaggle.com/antfarol/car-sale-advertisements</a> under a <a href="https://creativecommons.org/publicdomain/zero/1.0/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0100ENSkillsNetwork23053252-2022-01-01" target="_blank" rel="external">CC0: Public Domain license</a>.</p>
+    <blockquote>
+      <p>We are using a modified subset of that dataset for this lab. To follow the lab instructions successfully, please use the dataset provided with this exercise rather than the dataset from the original source.</p>
+    </blockquote>
+    <h2>Download the dataset</h2>
+    <p><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/exercise03_car_sales_data.csv" target="_blank" rel="external">https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/exercise03_car_sales_data.csv</a> is the csv file used in this lab.</p>
+    <h2>Objectives</h2>
+    <p>After completing this lab, you will be able to:</p>
+    <ul>
+      <li>Create and Load data into a table from a CSV file.</li>
+    </ul>
+    <h1></h1>
+    <h2>Exercise 1: Create a table by loading a CSV file using Datasette</h2>
+    <p>In this exercise, you will learn how to load a CSV file and create a table using the Datasette tool.</p>
+    <ol>
+      <li>
+        <p>Once the Datasette tool launches using the Open tool option, click on the <strong>Add DataSets</strong> option at the right-end corner.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/Datasetteoptionallabs/Week3/images/Data_img1.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>You will be redirected to a page where you need to enter the full URL of the CSV dataset in the text box.</p>
+        <ul>
+          <li>Right-click on the link</li>
+        </ul>
+      </li>
+    </ol>
+    <p><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/exercise03_car_sales_data.csv" target="_blank" rel="external">exercise03_car_sales_data.csv</a> and copy the link address.</p>
+    <ul>
+      <li>Enter the copied URL in the text box and click on the create button.</li>
+    </ul>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/Datasetteoptionallabs/Week3/images/Data_img2.png" alt="image">
+    </p>
+    <ol start="3">
+      <li>
+        <p>The exercise03_car_sales_data table will be created with the data loaded from the CSV file.</p>
+        <p>A <strong>select</strong> query related to the table will appear on the <strong>text area</strong> section of the following webpage.</p>
+        <p>Click on the <strong>Submit Query</strong> button to view the results.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/Datasetteoptionallabs/Week3/images/Data_img3.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Next, modify the <strong>select</strong> query as follows:</p>
+        <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">COUNT</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">FROM</span> exercise03_car_sales_data;
+</code></pre>
+      </li>
+      <li>
+        <p>Once the query executes successfully, it displays the counts.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/Datasetteoptionallabs/Week3/images/Data_img4.PNG" alt="image">
+        </p>
+      </li>
+    </ol>
+    <h3>Congratulations! You have successfully created and loaded the table in Datasette.</h3><br>
+    <h2>Author(s)</h2>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/geetika-pal-4866a4137/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0100ENSkillsNetwork23053252-2022-01-01" target="_blank" rel="external">Geetika Pal</a></li>
+    </ul>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2022-05-28</td>
+          <td>1.0</td>
+          <td>Geetika</td>
+          <td>Converted initial version</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2022. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

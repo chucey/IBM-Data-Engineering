@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <h1><a id="_Toc58604903"></a><strong>Lab: Explore your dataset using SQL queries</strong></h1>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/IDSNlogo.png" width="200" height="200">
+    <p><strong>Lab Overview:</strong></p>
+    <p>Now that you have learned how querying techniques can help you to explore and analyze your data, you will run some basic SQL queries on the data you loaded into your database instance in the previous lab. For this, you will use the in-built SQL editor available in your Lite account.</p>
+    <p><strong>Estimated time needed:</strong> 15 minutes</p>
+    <p>Please follow the steps given below to explore your dataset using SQL queries.</p>
+    <ol>
+      <li>Click on <a href="https://cloud.ibm.com/catalog/services/db2?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0100ENSkillsNetwork23053252-2022-01-01" target="_blank" rel="external">https://cloud.ibm.com/catalog/services/db2</a> to access your Db2 dashboard on Cloud.</li>
+      <li>If you’re not already logged in to your IBM Cloud Lite account, click on <strong>Log in</strong> at the bottom right of the screen to log in.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-1.png" width="25%"><br>
+    </p>
+    <ol start="3">
+      <li>Logging in will take you to your <strong>Db2 service dashboard</strong>.</li>
+    </ol>
+    <p>Click on <strong>view existing</strong> link in the <strong>Existing Lite plan instance</strong> box.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-2.png" width="50%"><br>
+    </p>
+    <ol start="4">
+      <li>The <strong>Manage</strong> tab will be active by default in your services dashboard. Click on the <strong>Go to UI</strong> button.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-3.png" width="50%"><br>
+    </p>
+    <ol start="5">
+      <li>Click on the 3-bar menu at the top left of the screen and select <strong>RUN SQL</strong> from the dropdown menu.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-4.png" width="50%"><br>
+    </p>
+    <ol start="6">
+      <li>On the next screen click on <strong>Create new</strong>.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-5.png" width="50%"><br>
+    </p>
+    <ol start="7">
+      <li>The <strong>SQL editor</strong> will open.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-6.png" width="50%"><br>
+    </p>
+    <ol start="8">
+      <li>Click on the highlighted row and copy-paste the following query into the highlighted row.</li>
+    </ol>
+    <p>select count(*) from CARSALESTABLE;</p>
+    <p>Click on <strong>Run all</strong> at the bottom left of the screen to run the query.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-7.png" width="75%"><br>
+    </p>
+    <ol start="9">
+      <li>Close the Result Set window and then copy and paste the following query into the <strong>SQL editor</strong>, replacing the existing query text.</li>
+    </ol>
+    <p>select max(price) as max_price from CARSALESTABLE;</p>
+    <p>Click on <strong>Run all</strong> at the bottom left of the screen to run the query.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-9.png" width="75%"><br>
+    </p>
+    <ol start="10">
+      <li>Click on the <strong>arrow</strong>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_7A.png" width="50"> on the right side of the screen to view the result of your query.
+      </li>
+    </ol>
+    <p>A pop-window will open with the result.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-10.png" width="25%"><br>
+    </p>
+    <ol start="11">
+      <li>Close the Result Set window and then copy and paste the following query into the <strong>SQL editor</strong>, replacing the existing query text.</li>
+    </ol>
+    <p>select distinct(model) from CARSALESTABLE;</p>
+    <p>Click on <strong>Run all</strong> at the bottom left of the screen to run the query.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_4-11.png" width="75%"><br>
+    </p>
+    <h1>Congratulations! You have successfully run some SQL queries to help you explore and understand your dataset.</h1>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

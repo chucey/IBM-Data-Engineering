@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <h1><a id="_Toc58604905"></a><strong>Lab: Load data into the IBM Db2 database from a CSV file</strong></h1>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/IDSNlogo.png" width="200" height="200">
+    <p><strong>Lab Overview:</strong></p>
+    <p>Now that you have learned about the process of importing data into a data repository from varied sources, you will load data from a CSV file into the IBM Db2 database instance you created in the previous lab.</p>
+    <p><strong>Estimated time needed:</strong> 15 minutes</p>
+    <p><strong>Dataset used in this exercise:</strong></p>
+    <p>The dataset used in this exercise comes from the following source: <a href="https://www.kaggle.com/antfarol/car-sale-advertisements?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0100ENSkillsNetwork23053252-2022-01-01" target="_blank" rel="external">https://www.kaggle.com/antfarol/car-sale-advertisements</a> under a <a href="https://creativecommons.org/publicdomain/zero/1.0/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0100ENSkillsNetwork23053252-2022-01-01" target="_blank" rel="external">CC0: Public Domain license</a>. We are using a modified subset of that dataset for this lab. To follow the lab instructions successfully, please use the dataset provided with this exercise rather than the dataset from the original source.</p>
+    <p><strong>NOTE:</strong> The lab assumes that you have downloaded this CSV file: <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/exercise03_car_sales_data.csv" target="_blank" rel="external">exercise03_car_sales_data.csv</a> to your local system.</p>
+    <p>Please follow the steps given below to provision your instance of IBM Db2 on Cloud.</p>
+    <ol>
+      <li>Go to: <a href="https://cloud.ibm.com/catalog/services/db2?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0100ENSkillsNetwork23053252-2022-01-01" target="_blank" rel="external">https://cloud.ibm.com/catalog/services/db2</a> to access your Db2 dashboard on Cloud.</li>
+      <li>If you’re not already logged in to your IBM Cloud Lite account, click on <strong>Log in</strong> at the bottom right of the screen to log in.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-1.png" width="25%"><br>
+    </p>
+    <ol start="3">
+      <li>Logging in will take you to your <strong>Db2 service dashboard</strong>.</li>
+    </ol>
+    <p>Click on <strong>view existing</strong> link in the <strong>Existing Lite plan instance</strong> box.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-2.png" width="50%"><br>
+    </p>
+    <ol start="4">
+      <li>The <strong>Manage</strong> tab will be active by default in your services dashboard. Click on <strong>Go to UI</strong>.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-3.png" width="75%"><br>
+    </p>
+    <ol start="5">
+      <li>Now click on the menu bar icon in the top left corner of your Db2 service dashboard.</li>
+    </ol>
+    <p>Click on <strong>Load</strong> <strong>></strong> <strong>Load Data</strong>.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-4.png" width="50%"><br>
+    </p>
+    <ol start="6">
+      <li>You can either drag and drop the CSV file into the <strong>File selection</strong> box, or you can click on the <strong>browse files</strong> link, also provided in the <strong>File selection</strong> box to browse your local folders to find and open the downloaded CSV file.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-5.png" width="75%"><br>
+    </p>
+    <p>The name of the CSV file you have uploaded will appear in the <strong>Selected file</strong> section on the right.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-6.png" width="75%"><br>
+    </p>
+    <p>Click <strong>Next</strong> to proceed.</p>
+    <ol start="7">
+      <li>You will be asked to select a <strong>Schema</strong> from a list of schema names.</li>
+    </ol>
+    <p><strong>NOTE:</strong> Select the schema name with a random mix of alphabets and numbers. It will be similar to, but not the same as, the one you see in the screenshot below (<em>MGJ73335</em>). The ones that you do NOT have to select are AUDIT, DB2INST1, ERRORSCHEMA, and ST_INFORMTN_SCHEMA (and sometimes you might also see SQLxxxxx as well).</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-7.png" width="75%"><br>8. Click on <strong>New Table</strong>.
+    </p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-8.png" width="75%"><br>
+    </p>
+    <ol start="9">
+      <li>Enter the name <strong>CARSALESTABLE</strong> in the input box prompting you with <em><strong>NEW TABLE NAME</strong></em>.</li>
+    </ol>
+    <p><strong>Note:</strong> You will be using this table name in the SQL queries you will execute in the next exercise.</p>
+    <p>Now click on <strong>Create</strong> to create the new table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-9.png" width="75%"><br>
+    </p>
+    <ol start="10">
+      <li>A table by the name of <strong>CARSALESTABLE</strong> has been created.</li>
+    </ol>
+    <p>Click <strong>Next</strong> at the bottom right of the page to proceed.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-10.png" width="75%"><br>
+    </p>
+    <ol start="11">
+      <li>Click <strong>Next</strong> to proceed.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-11.png" width="75%"><br>
+    </p>
+    <ol start="12">
+      <li>Then click <strong>Begin Load</strong> to begin the process of loading the data from the CSV into your database.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-12.png" width="75%"><br>
+    </p>
+    <ol start="13">
+      <li>Data from your CSV file is now loaded into your Db2 instance.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0100EN-SkillsNetwork/labs/images/Figure_3-13.png" width="75%"><br>
+    </p>
+    <h1>Congratulations! You have successfully loaded data from a CSV file into the IBM Db2 instance you created in the previous lab.</h1>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
