@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0321EN-SkillsNetwork/Readings/data_platform_architecture.png" alt="">
+    </p>
+    <h2>Environment:</h2>
+    <p>This document introduces you to the data platform architecture of an ecommerce company named SoftCart.</p>
+    <p>SoftCart uses a hybrid architecture, with some of its databases on premises and some on cloud.</p>
+    <h2>Tools and Technologies:</h2>
+    <ul>
+      <li>OLTP database - MySQL</li>
+      <li>NoSql database - MongoDB</li>
+      <li>Production Data warehouse – DB2 on Cloud</li>
+      <li>Staging - Data warehouse – PostgreSQL</li>
+      <li>Big data platform - Hadoop</li>
+      <li>Big data analytics platform – Spark</li>
+      <li>Business Intelligence Dashboard - IBM Cognos Analytics</li>
+      <li>Data Pipelines - Apache Airflow</li>
+    </ul>
+    <h2>Process:</h2>
+    <p>SoftCart's online presence is primarily through its website, which customers access using a variety of devices like laptops, mobiles and tablets.</p>
+    <p>All the catalog data of the products is stored in the MongoDB NoSQL server.</p>
+    <p>All the transactional data like inventory and sales are stored in the MySQL database server.</p>
+    <p>SoftCart's webserver is driven entirely by these two databases.</p>
+    <p>Data is periodically extracted from these two databases and put into the staging data warehouse running on PostgreSQL.</p>
+    <p>Production data warehouse is on the cloud instance of IBM DB2 server.</p>
+    <p>BI teams connect to the IBM DB2 for operational dashboard creation. IBM Cognos Analytics is used to create dashboards.</p>
+    <p>SoftCart uses Hadoop cluster as it big data platform where all the data collected for analytics purposes.</p>
+    <p>Spark is used to analyse the data on the Hadoop cluster.</p>
+    <p>To move data between OLTP, NoSQL and the dataware house ETL pipelines are used and these run on Apache Airflow.</p>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
