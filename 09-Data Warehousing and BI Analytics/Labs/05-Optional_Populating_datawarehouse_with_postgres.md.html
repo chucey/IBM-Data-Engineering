@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <center>
+      <img src="https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/Logos/organization_logo/organization_logo.png" width="300" alt="cognitiveclass.ai logo">
+    </center>
+    <h1>Hands-on Lab: Populating a Data Warehouse using PostgreSQL</h1><br>
+    <p>Estimated time needed: 15 minutes</p>
+    <p>In this lab, you will learn how to create database and load data in PostgreSQL.</p>
+    <h2>Software Used in this Lab</h2><br>
+    <p>To complete this lab you will utilize the <a href="https://www.postgresql.org/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0110ENSkillsNetwork24601058-2021-01-01">PostgreSQL Database</a> relational database service available as part of IBM Skills Network Labs (SN Labs) Cloud IDE. SN Labs is a virtual lab environment used in this course.</p>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0110EN-SkillsNetwork/labs/Lab%20-%20Create%20Tables%20and%20Load%20Data%20in%20PostgreSQL%20using%20pgAdmin/images/postgresql.png" alt="PostgreSQL" width="150">
+    <h1>Database Used in this Lab</h1>
+    <p>
+      Production database is used in this lab.
+      The production database contains:
+    </p>
+    <ul>
+      <li>DimCustomer</li>
+      <li>DimMonth</li>
+      <li>FactBilling</li>
+    </ul>
+    <h2>Objectives</h2>
+    <p>In this lab you will:</p>
+    <ul>
+      <li>Create production related database and tables in a PostgreSQL instance.</li>
+      <li>Populate the production data warehouse byloading the tables from Scripts.</li>
+    </ul>
+    <h2>Lab Structure</h2>
+    <p>In this lab, you will complete several tasks in which you will learn how to create tables and load data in the PostgreSQL database service using the pgAdmin graphical user interface (GUI) tool.</p>
+    <h1>Data Used in this Lab</h1>
+    <p>
+      The following are the SQL data files used in this lab.
+      The production database contains:
+    </p>
+    <ul>
+      <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/PostgresData/DimCustomer.sql?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0260ENSkillsNetwork27338483-2022-01-01">DimCustomer</a></li>
+      <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/PostgresData/DimMonth.sql?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0260ENSkillsNetwork27338483-2022-01-01">DimMonth</a></li>
+      <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/PostgresData/FactBilling.sql?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0260ENSkillsNetwork27338483-2022-01-01">FactBilling</a></li>
+      <li><a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/PostgresData/star-schema.sql?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0260ENSkillsNetwork27338483-2022-01-01">Star Schema</a></li>
+    </ul>
+    <h1>Task A: Create a database</h1>
+    <p>First, to create a database on a PostgreSQL server instance, you'll first want to actually launch a PostgreSQL server instance on Cloud IDE and open up the pgAdmin Graphical User Interface.</p>
+    <ol>
+      <li>
+        <p>Click on the Skills Network extension button on the left side of the window.</p>
+      </li>
+      <li>
+        <p>Open the <strong>DATABASES</strong> drop down menu.</p>
+      </li>
+      <li>
+        <p>Click on <strong>PostgreSQL</strong></p>
+      </li>
+      <li>
+        <p>Click on the <strong>Start</strong> button. PostgreSQL may take a few moments to start.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/1.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Next, open the pgAdmin Graphical User Interface by clicking the <strong>pgAdmin</strong> button in the Cloud IDE interface.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/1.1.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Once the pgAdmin GUI opens, click on the <strong>Servers</strong> tab on the left side of the page. You will be prompted to enter a password.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/2.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>To retrieve your password, click on the <strong>PostgreSQL</strong> tab near the top of the interface.</p>
+      </li>
+      <li>
+        <p>Click on the <strong>Copy</strong> icon to the left of your password to copy the session password onto your clipboard.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/2.1.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Navigate back to the <strong>pgAdmin</strong> tab and paste in your password, then click OK.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/2.2.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>You will then be able to access the pgAdmin GUI tool.</p>
+      </li>
+      <li>
+        <p>In the left tree-view, right-click on <strong>Databases> Create > Database</strong>.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/3.png" alt="image">
+        </p>
+      </li>
+    </ol>
+    <p>In the Database box, type <strong>Production</strong> as the name for your new database, and then click <strong>Save</strong>. Proceed to Task B.</p>
+    <pre><code class="hljs language-awk">![image](.<span class="hljs-regexp">/images/</span><span class="hljs-number">4</span>.png)
+</code></pre>
+    <h1>Task B: Create tables</h1>
+    <p>Now, that you have your PostgreSQL service active and have created the <strong>Production database</strong> using pgAdmin, let's go ahead and create a few tables to populate the database and store the data that we wish to eventually upload into it.</p>
+    <ol>
+      <li>
+        <p>In the top of the page go to <strong>Query tool"</strong> and then click on <strong>Open File</strong>. Next a new page pops up called <strong>Select File</strong>. Click on <strong>Upload</strong> icon as shown in the screenshot.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/6.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>In the new blank page that appears drag and drop the <strong>star-schema.sql</strong> file inside the blank page. Once the <strong>star-schema.sql</strong> file is successfully loaded, click on the <strong>X</strong> icon on the left hand side of the page as shown in the screenshot.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/7.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Once you click on the <strong>X</strong> icon a new page appears with the file <strong>star-schema.sql</strong>. Select the <strong>star-schema.sql</strong> file from the list and click on <strong>Select</strong> tab.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/8.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Once the file opens up click on the <strong>Run</strong> option to execute the <strong>star-schema.sql</strong> file.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/9.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Next, right-click on the <strong>Production database</strong> and click on <strong>Refresh</strong> option from the dropdown.</p>
+      </li>
+    </ol>
+    <p>After the database is refreshed the 3 tables(DimCustomer, DimMonth,FactBilling) are created under the <strong>Databases > Production > Schema > Public > Tables</strong>.</p>
+    <pre><code class="hljs language-awk">![image](.<span class="hljs-regexp">/images/</span><span class="hljs-number">10</span>.png)
+
+![image](.<span class="hljs-regexp">/images/</span><span class="hljs-number">11</span>.png)
+</code></pre>
+    <h1>Task C: Load tables</h1>
+    <ol>
+      <li>
+        <p>Click on <strong>Query tool</strong> and then click <strong>Open</strong> file and click on <strong>Upload</strong> icon.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/13.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>In the new blank page that appears drag and drop the <strong>DimCustomer.sql</strong> file inside the blank page. Once the <strong>DimCustomer.sql</strong> file is successfully loaded.</p>
+      </li>
+    </ol>
+    <p>Click on the small <strong>X</strong> icon on the left hand side of the page as shown in the screenshot.</p>
+    <pre><code class="hljs language-awk">![image](.<span class="hljs-regexp">/images/</span><span class="hljs-number">14</span>.png)
+</code></pre>
+    <ol start="3">
+      <li>
+        <p>Once you click on the <strong>X</strong> icon a new page appears with the file <strong>DimCustomer.sql</strong>. Select the <strong>DimCustomer.sql</strong> file from the list and click on <strong>Select</strong> tab.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/15.png" alt="image">
+        </p>
+      </li>
+      <li>
+        <p>Once the file opens up, click on the <strong>Run</strong> option to execute the <strong>DimCustomer.sql</strong> file.</p>
+        <p>
+          <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/16.png" alt="image">
+        </p>
+      </li>
+    </ol>
+    <blockquote>
+      <p>Note: Repeat the steps as given in Task C to upload the remaining sql files to insert data in <strong>DimMonth and FactBilling</strong>.</p>
+    </blockquote>
+    <ol start="5">
+      <li>Let's run the command below on the PostgreSQL Tool.</li>
+    </ol>
+    <pre><code class="hljs language-axapta"><span class="hljs-keyword">select</span> <span class="hljs-keyword">count</span>(*) <span class="hljs-keyword">from</span> <span class="hljs-keyword">public</span>.<span class="hljs-string">"DimMonth"</span>;
+</code></pre>
+    <p></p>
+    <p>You should see an output as seen in the image below.</p>
+    <pre><code class="hljs language-awk">![image](.<span class="hljs-regexp">/images/</span><span class="hljs-number">29</span>.png)
+</code></pre>
+    <p>You are encouraged to run more sql queries.</p>
+    <h1>Practice exercises</h1>
+    <h4>Problem 1: Using the PostgreSQL tool, find the count of rows in the table FactBilling</h4>
+    <details>
+      <summary>Click here for Hint</summary>
+      <p>Use the select statement along with count function on the table FactBilling.</p>
+    </details>
+    <details>
+      <summary>Click here for Solution</summary>
+      <pre><code class="hljs language-axapta"><span class="hljs-keyword">select</span> <span class="hljs-keyword">count</span>(*) <span class="hljs-keyword">from</span> <span class="hljs-keyword">public</span>.<span class="hljs-string">"FactBilling"</span>;
+</code></pre>
+      <p></p>
+    </details>
+    <h4>Problem 2: Using the PostgreSQL tool, create a simple MQT named avg_customer_bill with fields customerid and averagebillamount.</h4>
+    <details>
+      <summary>Click here for Hint</summary>
+      <p>Use the create materilized view command.</p>
+    </details>
+    <details>
+      <summary>Click here for Solution</summary>
+      <pre><code class="hljs language-n1ql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">MATERIALIZED</span> <span class="hljs-keyword">VIEW</span>  avg_customer_bill (customerid, averagebillamount) <span class="hljs-keyword">AS</span>
+(<span class="hljs-keyword">select</span> customerid, <span class="hljs-built_in">avg</span>(billedamount)
+<span class="hljs-keyword">from</span> <span class="hljs-keyword">public</span>.<span class="hljs-string">"FactBilling"</span>
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> customerid
+);
+</code></pre>
+      <p></p>
+      <p>Click the <strong>Run All</strong> Button to run the statement. You should see status as <strong>Success</strong> in the <strong>Result</strong> section.</p>
+    </details>
+    <h4>Problem 3: Refresh the newly created MQT</h4>
+    <details>
+      <summary>Click here for Hint</summary>
+      <p>Use the refresh materialized view command.</p>
+    </details>
+    <details>
+      <summary>Click here for Solution</summary>
+      <pre><code class="hljs language-pgsql"><span class="hljs-keyword">REFRESH</span> <span class="hljs-keyword">MATERIALIZED</span> <span class="hljs-keyword">VIEW</span> avg_customer_bill;
+
+</code></pre>
+      <p></p>
+    </details>
+    <h4>Problem 4: Using the newly created MQT find the customers whose average billing is more than 11000.</h4>
+    <details>
+      <summary>Click here for Hint</summary>
+      <p>Use the select statement on the MQT with a where clause on the column averagebillamount.</p>
+    </details>
+    <details>
+      <summary>Click here for Solution</summary>
+      <pre><code class="hljs language-axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> avg_customer_bill <span class="hljs-keyword">where</span> averagebillamount > <span class="hljs-number">11000</span>;
+
+</code></pre>
+      <p></p>
+    </details>
+    <h3>Congratulations! You have successfully finished the Populating a Data Warehouse lab.</h3>
+    <h2>Author</h2>
+    <p>Amrutha Rao</p>
+    <h2>Change Log</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date (YYYY-MM-DD)</th>
+          <th>Version</th>
+          <th>Changed By</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2022-07-29</td>
+          <td>0.3</td>
+          <td>Lakshmi Holla</td>
+          <td>updated HTML tags</td>
+        </tr>
+        <tr>
+          <td>2022-04-21</td>
+          <td>0.2</td>
+          <td>Amrutha Rao</td>
+          <td>Converted initial version to postgreSQL workaround.</td>
+        </tr>
+        <tr>
+          <td>2021-09-29</td>
+          <td>0.1</td>
+          <td>Ramesh Sannareddy</td>
+          <td>Created initial version of the lab</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2022. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

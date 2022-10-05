@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <center>
+      <img src="https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/Logos/organization_logo/organization_logo.png" width="300" alt="cognitiveclass.ai logo">
+    </center>
+    <h1>Hands-on Lab: Querying the Data Warehouse (Cubes, Rollups, Grouping Sets and Materialized Views)</h1><br>
+    <p>Estimated time needed: 30 minutes</p>
+    <h2>Objectives</h2>
+    <p>In this lab you will learn how to create:</p>
+    <ul>
+      <li>Grouping sets</li>
+      <li>Rollup</li>
+      <li>Cube</li>
+      <li>Materialized Query Tables (MQT)</li>
+    </ul>
+    <h2>Exercise 1 - Launch a PostgreSQL server instance on Cloud IDE and open up the pgAdmin Graphical User Interface.</h2>
+    <p>This lab requires that you complete the previous lab Populate a Data Warehouse.</p>
+    <p>If you have not finished the Populate a Data Warehouse Lab yet, please finish it before you continue.</p>
+    <p><strong>GROUPING SETS, CUBE, and ROLLUP</strong> allow us to easily create subtotals and grand totals in a variety of ways. All these operators are used along with the GROUP BY operator.</p>
+    <p><strong>GROUPING SETS</strong> operator allows us to group data in a number of different ways in a single SELECT statement.</p>
+    <p>The <strong>ROLLUP</strong> operator is used to create subtotals and grand totals for a set of columns. The summarized totals are created based on the columns passed to the ROLLUP operator.</p>
+    <p>The <strong>CUBE</strong> operator produces subtotals and grand totals. In addition, it produces subtotals and grand totals for every permutation of the columns provided to the CUBE operator.</p>
+    <h2>Exercise 2 - Write a query using grouping sets</h2>
+    <p>After you launch a PostgreSQL server instance on Cloud IDE and open up the pgAdmin Graphical User Interface run the below query.</p>
+    <p>To create a grouping set for three columns labeled year, category, and sum of billedamount, run the sql statement below.</p>
+    <pre><code class="hljs language-sql_more"><span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>,quartername, <span class="hljs-keyword">sum</span>(billedamount) <span class="hljs-keyword">as</span> totalbilledamount
+<span class="hljs-keyword">from</span> <span class="hljs-string">"FactBilling"</span>
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimCustomer"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.customerid = <span class="hljs-string">"DimCustomer"</span>.customerid
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimMonth"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.monthid=<span class="hljs-string">"DimMonth"</span>.monthid
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">grouping</span> <span class="hljs-keyword">sets</span>(<span class="hljs-keyword">year</span>,quartername);
+
+</code></pre>
+    <p></p>
+    <p>The partial output can be seen in the image below.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/35.1.png" alt="image">
+    </p>
+    <h2>Exercise 3 - Write a query using rollup</h2>
+    <p>To create a rollup using the three columns year, category and sum of billedamount, run the sql statement below.</p>
+    <pre><code class="hljs language-sql_more"><span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>,<span class="hljs-keyword">category</span>, <span class="hljs-keyword">sum</span>(billedamount) <span class="hljs-keyword">as</span> totalbilledamount
+<span class="hljs-keyword">from</span> <span class="hljs-string">"FactBilling"</span>
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimCustomer"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.customerid = <span class="hljs-string">"DimCustomer"</span>.customerid
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimMonth"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.monthid=<span class="hljs-string">"DimMonth"</span>.monthid
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">rollup</span>(<span class="hljs-keyword">year</span>,<span class="hljs-keyword">category</span>)
+<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">year</span>, <span class="hljs-keyword">category</span>;
+</code></pre>
+    <p></p>
+    <p>The partial output can be seen in the image below.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/36.1.png" alt="image">
+    </p>
+    <h2>Exercise 4 - Write a query using cube</h2>
+    <p>To create a cube using the three columns labeled year, category, and sum of billedamount, run the sql statement below.</p>
+    <pre><code class="hljs language-sql_more"><span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>,<span class="hljs-keyword">category</span>, <span class="hljs-keyword">sum</span>(billedamount) <span class="hljs-keyword">as</span> totalbilledamount
+<span class="hljs-keyword">from</span> <span class="hljs-string">"FactBilling"</span>
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimCustomer"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.customerid = <span class="hljs-string">"DimCustomer"</span>.customerid
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimMonth"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.monthid=<span class="hljs-string">"DimMonth"</span>.monthid
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">cube</span>(<span class="hljs-keyword">year</span>,<span class="hljs-keyword">category</span>)
+<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">year</span>, <span class="hljs-keyword">category</span>;
+
+</code></pre>
+    <p></p>
+    <p>The partial output can be seen in the image below.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week2/images/37.1.png" alt="image">
+    </p>
+    <h2>Exercise 5 - Create a Materialized Query Table(MQT)</h2>
+    <p>In pgAdmin we can implement materialized views using Materialized Query Tables.</p>
+    <h4>Step 1: Create the MQT.</h4>
+    <p>Execute the sql statement below to create an MQT named countrystats.</p>
+    <pre><code class="hljs language-sql_more"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">MATERIALIZED</span> <span class="hljs-keyword">VIEW</span> countrystats (country, <span class="hljs-keyword">year</span>, totalbilledamount) <span class="hljs-keyword">AS</span>
+(<span class="hljs-keyword">select</span> country, <span class="hljs-keyword">year</span>, <span class="hljs-keyword">sum</span>(billedamount)
+<span class="hljs-keyword">from</span> <span class="hljs-string">"FactBilling"</span>
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimCustomer"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.customerid = <span class="hljs-string">"DimCustomer"</span>.customerid
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimMonth"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.monthid=<span class="hljs-string">"DimMonth"</span>.monthid
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> country,<span class="hljs-keyword">year</span>);
+
+</code></pre>
+    <p></p>
+    <p>The above command creates an MQT named countrystats that has 3 columns.</p>
+    <ul>
+      <li>Country</li>
+      <li>Year</li>
+      <li>totalbilledamount</li>
+    </ul>
+    <p>The MQT is essentially the result of the below query, which gives you the year, quartername and the sum of billed amount grouped by year and quartername.</p>
+    <pre><code class="hljs language-sql_more"><span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>, quartername, <span class="hljs-keyword">sum</span>(billedamount) <span class="hljs-keyword">as</span> totalbilledamount
+<span class="hljs-keyword">from</span> <span class="hljs-string">"FactBilling"</span>
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimCustomer"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.customerid = <span class="hljs-string">"DimCustomer"</span>.customerid
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimMonth"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.monthid=<span class="hljs-string">"DimMonth"</span>.monthid
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">grouping</span> <span class="hljs-keyword">sets</span>(<span class="hljs-keyword">year</span>, quartername);
+
+</code></pre>
+    <p></p>
+    <h4>Step 2: Populate/refresh data into the MQT.</h4>
+    <p>Execute the sql statement below to populate the MQT countrystats.</p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">REFRESH</span> <span class="hljs-keyword">MATERIALIZED</span> <span class="hljs-keyword">VIEW</span> countrystats;
+
+</code></pre>
+    <p></p>
+    <p>The command above populates the MQT with relevant data.</p>
+    <p>Step 3: Query the MQT.</p>
+    <p>Once an MQT is refreshed, you can query it.</p>
+    <p>Execute the sql statement below to query the MQT countrystats.</p>
+    <pre><code class="hljs language-axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> countrystats;
+
+</code></pre>
+    <p></p>
+    <h2>Practice exercises</h2>
+    <h4>Problem 1: Create a grouping set for the columns year, quartername, sum(billedamount).</h4>
+    <details>
+      <summary>Click here for Hint</summary>
+      <p>Make sure that this table contains the year and quartername.</p>
+    </details>
+    <details>
+      <summary>Click here for Solution</summary>
+      <pre><code class="hljs language-sql_more"><span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>, quartername, <span class="hljs-keyword">sum</span>(billedamount) <span class="hljs-keyword">as</span> totalbilledamount
+<span class="hljs-keyword">from</span> <span class="hljs-string">"FactBilling"</span>
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimCustomer"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.customerid = <span class="hljs-string">"DimCustomer"</span>.customerid
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimMonth"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.monthid=<span class="hljs-string">"DimMonth"</span>.monthid
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">grouping</span> <span class="hljs-keyword">sets</span>(<span class="hljs-keyword">year</span>, quartername);
+</code></pre>
+      <p></p>
+    </details><br>
+    <h4>Problem 2: Create a rollup for the columns country, category, sum(billedamount).</h4>
+    <details>
+      <summary>Click here for Hint</summary>
+      <p>Select columns year, quartername, sum(billedamount), and use a group by query and join the dimcustomer and dimmonth tables to factbilling table_.</p>
+    </details>
+    <details>
+      <summary>Click here for Solution</summary>
+      <pre><code class="hljs language-sql_more"><span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>, quartername,  <span class="hljs-keyword">sum</span>(billedamount) <span class="hljs-keyword">as</span> totalbilledamount
+<span class="hljs-keyword">from</span> <span class="hljs-string">"FactBilling"</span>
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimCustomer"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.customerid = <span class="hljs-string">"DimCustomer"</span>.customerid
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimMonth"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.monthid=<span class="hljs-string">"DimMonth"</span>.monthid
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">rollup</span>(<span class="hljs-keyword">year</span>, quartername)
+<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">year</span>, quartername;
+</code></pre>
+      <p></p>
+    </details><br>
+    <h4>Problem 3: Create a cube for the columns year,country, category, sum(billedamount).</h4>
+    <details>
+      <summary>Click here for Hint</summary>
+      <p>Select columns year,quartername , sum of billedamount, and use a group by query and join the dimcustomer and dimmonth tables to factbilling table_.</p>
+    </details>
+    <details>
+      <summary>Click here for Solution</summary>
+      <pre><code class="hljs language-sql_more"><span class="hljs-keyword">select</span> <span class="hljs-keyword">year</span>, quartername, <span class="hljs-keyword">sum</span>(billedamount) <span class="hljs-keyword">as</span> totalbilledamount
+<span class="hljs-keyword">from</span> <span class="hljs-string">"FactBilling"</span>
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimCustomer"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.customerid = <span class="hljs-string">"DimCustomer"</span>.customerid
+<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimMonth"</span>
+<span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.monthid=<span class="hljs-string">"DimMonth"</span>.monthid
+<span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">cube</span>(<span class="hljs-keyword">year</span>,quartername);
+
+</code></pre>
+      <p></p>
+    </details>
+    <h4>Problem 4: Create an MQT named average_billamount with columns year, quarter, category, country, average_bill_amount.</h4>
+    <details>
+      <summary>Click here for Hint</summary>
+      <p>Select columns year, quarter, category, country, avg(billedamount), and use a group by query and join the dimcustomer and dimmonth tables to factbilling table_.</p>
+    </details>
+    <details>
+      <summary>Click here for Solution</summary>
+      <pre><code class="hljs language-sql_more"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">MATERIALIZED</span> <span class="hljs-keyword">VIEW</span> average_billamount (<span class="hljs-keyword">year</span>,<span class="hljs-keyword">quarter</span>,<span class="hljs-keyword">category</span>,country, average_bill_amount) <span class="hljs-keyword">AS</span>
+    (<span class="hljs-keyword">select</span>   <span class="hljs-keyword">year</span>,<span class="hljs-keyword">quarter</span>,<span class="hljs-keyword">category</span>,country, <span class="hljs-keyword">avg</span>(billedamount) <span class="hljs-keyword">as</span> average_bill_amount
+    <span class="hljs-keyword">from</span> <span class="hljs-string">"FactBilling"</span>
+    <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span>  <span class="hljs-string">"DimCustomer"</span>
+    <span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.customerid =  <span class="hljs-string">"DimCustomer"</span>.customerid
+    <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> <span class="hljs-string">"DimMonth"</span>
+    <span class="hljs-keyword">on</span> <span class="hljs-string">"FactBilling"</span>.monthid=<span class="hljs-string">"DimMonth"</span>.monthid
+    <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">year</span>,<span class="hljs-keyword">quarter</span>,<span class="hljs-keyword">category</span>,country
+    );
+
+</code></pre>
+      <p></p>
+      <pre><code class="hljs language-pgsql"><span class="hljs-keyword">refresh</span> <span class="hljs-keyword">MATERIALIZED</span> <span class="hljs-keyword">VIEW</span> average_billamount;
+
+</code></pre>
+      <p></p>
+    </details>
+    <h4>Congratulations! You have successfully finished the Populating a Data Warehouse lab.</h4>
+    <h2>Author</h2>
+    <p>Amrutha Rao</p>
+    <h2>Change Log</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date (YYYY-MM-DD)</th>
+          <th>Version</th>
+          <th>Changed By</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2022-04-14</td>
+          <td>0.2</td>
+          <td>Amrutha Rao</td>
+          <td>converted initial version to pgAdmin workaround.</td>
+        </tr>
+        <tr>
+          <td>2021-09-29</td>
+          <td>0.1</td>
+          <td>Ramesh Sannareddy</td>
+          <td>Created initial version of the lab</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2022. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>

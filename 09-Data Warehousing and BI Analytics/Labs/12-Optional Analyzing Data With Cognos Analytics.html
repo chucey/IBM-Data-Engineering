@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/AnalyzingDataWithCognos/images/IDSNlogo.png" width="200" height="200">
+    <h1>Hands-on Lab: Analyzing Data With Cognos Analytics.</h1>
+    <p>Estimated time needed: 20 minutes.</p>
+    <h2>Objective for Exercise:</h2>
+    <ul>
+      <li>To create a dashboard with Billing data using IBM Cognos Analytics and analyze the regionwise spend.</li>
+    </ul>
+    <blockquote>
+      <p>Note: Click on the <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/data/Billing_data.csv" target="_blank" rel="external">data link</a>. Right-click and choose <strong>Save AS...</strong>. Save the file in your local system as <em>Billing-data.csv</em>.</p>
+    </blockquote>
+    <h3>Task 1 - Connect to IBM Cognos Analytics.</h3>
+    <ol>
+      <li>Go to <a href="https://www.ibm.com/account/reg/us-en/signup?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-wwwcourseraorg-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDV0130ENSkillsNetwork20531073-2021-01-01&#x26;formid=urx-48178" target="_blank" rel="external">IBM Cognos Analytics</a>, login with your IBM Cloud credentails and launch Data visualization.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/launch.png" alt="image">
+    </p>
+    <ol start="2">
+      <li>Choose the <strong>Upload data</strong> option and select the Billing_data.csv stored in your system.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/upload.png" alt="image">
+    </p>
+    <ol start="3">
+      <li>If the data is loaded successfully it shows a successfully loaded.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/loaded-data.png" alt="image">
+    </p>
+    <ol start="4">
+      <li>Go to <strong>Recent</strong> and right Click on <strong>Billing_data.csv</strong> and click on create dashboard.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/create-dashboard.png" alt="image">
+    </p>
+    <ol start="5">
+      <li>Choose to a dashboard and Click on <strong>Create</strong>.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/select-dashboard.png" alt="image">
+    </p>
+    <h3>Task 2 - Visualization</h3>
+    <p>You will now see the table listed on the left panel with all the attributes.</p>
+    <ol>
+      <li>Drag and drop the <strong>Billed Amount</strong> on the template.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/billed-amount.png" alt="image">
+    </p>
+    <ol start="2">
+      <li>The total billed amount will now appear on the Dashboard. The size and position can be adjusted as per requirement and the text display can be edited and formatted by double-clicking on it.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/billed-amount-value.png" alt="image">
+    </p>
+    <ol start="3">
+      <li>Drag and drop <strong>Billed Amount</strong> and <strong>Industry</strong> onto the dashboard as shown in the following image. With this, we can visualize the build amount per industry.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/billed-amount-industry.png" alt="image">
+    </p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/billed-amount-industry-value.png" alt="image">
+    </p>
+    <ol start="4">
+      <li>Drag and drop <strong>Billed Amount, Country and Industry</strong> onto the dashboard as shown in the following image. This will generate a heat map of spending by country and by industry.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/billed-amount-industry-country.png" alt="image">
+    </p>
+    <ol start="5">
+      <li>The finished dashboard will appear as in the following image.</li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0260EN-SkillsNetwork/labs/BIWorkaroundFiles/week3/images/billed-amount-industry-country-value.png" alt="image">
+    </p>
+    <ol start="6">
+      <li>Optionally, try to change the properties and settings to see how the dashboard changes. You can also observe the billed amount changing as you click on a region on the heat map or the bar graph.</li>
+    </ol>
+    <h2>Author(s)</h2>
+    <p><a href="https://www.linkedin.com/in/niveditha-pandith-53a057231/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork20127838-2022-02-08" target="_blank" rel="external">Niveditha Pandith</a></p>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2022-04-08</td>
+          <td>1.2</td>
+          <td>Niveditha</td>
+          <td>Converted initial version to Cognos Analytics</td>
+        </tr>
+        <tr>
+          <td>2020-09-20</td>
+          <td>1.0</td>
+          <td>Lavanya</td>
+          <td>Created the lab</td>
+        </tr>
+        <tr>
+          <td>2021-10-7</td>
+          <td>1.1</td>
+          <td>Steve Hord</td>
+          <td>Copy Edit lab</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2021. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
