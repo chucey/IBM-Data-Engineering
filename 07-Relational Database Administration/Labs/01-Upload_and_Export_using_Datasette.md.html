@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/SN_web_lightmode.png">
+    <h1>Hands-on Lab: Upload and Export using Datasette</h1>
+    <p><strong>Estimated time needed:</strong> 15 minutes</p>
+    <p>In this lab, you will learn how to upload and export data in a table using Datasette.</p><br>
+    <h2>Objectives</h2>
+    <p>After completing this lab, you will be able to use the Datasette:</p>
+    <ul>
+      <li>Upload CSV file onto a table in Datasette.</li>
+      <li>Export data from Datasette.</li>
+    </ul>
+    <h1></h1>
+    <h2>Required Software</h2>
+    <p>In this lab, you will use Datasette, an open-source multi-tool for exploring and publishing data.</p>
+    <h2>Database</h2>
+    <p>The first dataset used in this lab comes from the following source: <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/5562ced564e776edc5f91e13d48d8309?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0231ENSkillsNetwork26763093-2022-01-01&#x26;context=cpdaas" target="_blank" rel="external">https://dataplatform.cloud.ibm.com/exchange/public/entry/view/5562ced564e776edc5f91e13d48d8309?context=cpdaas</a>. This dataset is published by <strong>IBM</strong> and contains point data for a sample list of hospitals in the US.</p>
+    <blockquote>
+      <p>Note that this is sample data for SQL demo purposes and is not necessarily current or accurate.</p>
+    </blockquote>
+    <h2>Exercise 1: Upload Data into a Datasette by creating a table.</h2>
+    <p>In this exercise, you will go through an example of uploading a CSV file and creating a table using the Datasette tool.</p>
+    <ol>
+      <li>
+        <p>Once the Datasette tool is launched using the open tool, click on the <strong>Navigation Tool</strong> and then select <strong>Add DataSets</strong> option at the right-end corner.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/launchDatasette.PNG">
+      </li>
+    </ol><br>
+    <ol start="2">
+      <li>
+        <p>You will then be redirected to a page where you need to enter the full URL of the CSV dataset in the text box.</p>
+        <p>
+          Right-click on the link
+          (<a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/datasets/hospitals.csv?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0231ENSkillsNetwork26763093-2022-01-01">Hospitals.csv</a>) and copy the link address.
+        </p>
+        <p>Enter the copied URL in the text box and click on <strong>Create</strong>.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/add_dataset.PNG">
+      </li>
+    </ol><br>
+    <ol start="3">
+      <li>
+        <p>Then this will create the HOSPITALS table with the data loaded from the CSV file.<br></p>
+        <p>A <strong>select</strong> query related to the table will default appear in the text area section.</p>
+        <p>Click on the <strong>Submit Query</strong> button to view the results.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/submit.PNG">
+      </li>
+    </ol><br>
+    <ol start="5">
+      <li>
+        <p>You have successfully created and loaded the <strong>HOSPITALS</strong> table.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/result.PNG">
+      </li>
+    </ol><br>
+    <ol start="6">
+      <li>
+        <p>Modify your select query as below to get the total number of records in the table.</p>
+        <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">FROM</span> hospitals;
+</code></pre>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/record.png">
+      </li>
+    </ol><br>
+    <h2>Exercise 2: Export a Table from Datasette.</h2>
+    <p>In Exercise 1, you have learned how to upload data from a file into a Datasette database. Now, in this exercise, you will export a table from the database into a CSV file.</p>
+    <ol>
+      <li>
+        <p>First, click the <strong>home</strong> link at the top of the page in the tool.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/home1.PNG">
+      </li>
+    </ol><br>
+    <ol start="2">
+      <li>
+        <p>Click on the <strong>hospitals</strong> table link as highlighted below:</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/hospital.PNG">
+      </li>
+    </ol><br>
+    <ol start="3">
+      <li>
+        <p>Right-click on the <strong>CSV</strong> and copy the <strong>link address</strong>.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/csv.PNG">
+      </li>
+    </ol><br>
+    <ol start="4">
+      <li>
+        <p>Paste the URL in a new <strong>tab</strong> and press <strong>ENTER</strong>. Now this will display all the data present in the table.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/new-url.png">
+      </li>
+    </ol><br>
+    <ol start="5">
+      <li>
+        <p>To save the file, right-click and select <strong>SAVE-AS</strong>.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/save-as.PNG">
+      </li>
+    </ol><br>
+    <ol start="6">
+      <li>
+        <p>Enter <strong>File-name.csv</strong>, select <strong>All files</strong> from the drop-down, and click on <strong>SAVE</strong>.</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/all-files.PNG">
+      </li>
+    </ol><br>
+    <ol start="7">
+      <li>
+        <p>Finally, your downloaded CSV file will appear as shown below:</p>
+        <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DB0231EN-SkillsNetwork/Datasetteoptionallabs/Week2/images/output.PNG">
+      </li>
+    </ol><br>
+    <h2>Author(s)</h2>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/niveditha-pandith-53a057231/?utm_medium=Exinfluencer&#x26;utm_source=Exinfluencer&#x26;utm_content=000026UJ&#x26;utm_term=10006555&#x26;utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDB0231ENSkillsNetwork26763093-2022-01-01" target="_blank" rel="external">Niveditha Pandith</a></li>
+    </ul>
+    <h2>Changelog</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2021-07-08</td>
+          <td>1.0</td>
+          <td>Sandip Saha Joy</td>
+          <td>Created initial version</td>
+        </tr>
+        <tr>
+          <td>2021-10-04</td>
+          <td>2.0</td>
+          <td>David Pasternak</td>
+          <td>Rewrote with updated instructions</td>
+        </tr>
+        <tr>
+          <td>2022-05-28</td>
+          <td>2.1</td>
+          <td>Niveditha</td>
+          <td>Converted initial version to Datasette</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2022. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
